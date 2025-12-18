@@ -52,22 +52,27 @@ export default function GalleryPage() {
   const handleUploadComplete = async (urls: string[]) => {
     // Create gallery image entries for uploaded images
     for (const url of urls) {
-      await fetch('/api/admin/content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'create',
-          type: 'gallery',
-          data: {
-            id: `gallery-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-            src: url,
-            alt: 'Gallery image',
-            category: 'Uncategorized',
-            caption: '',
-            order: images.length,
-          },
-        }),
-      })
+      const title = prompt('Enter image title:', 'Untitled');
+      const description = prompt('Enter image description:', '');
+      const category = prompt('Enter category (Exterior/Interior/Amenities/Custom):', 'Exterior');
+      
+      if (title) {
+        await fetch('/api/admin/content', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'create',
+            type: 'gallery',
+            data: {
+              id: `gallery-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+              title: title,
+              description: description || '',
+              category: category || 'Exterior',
+              image: url,
+            },
+          }),
+        })
+      }
     }
     setShowUpload(false)
     loadGallery()
@@ -174,8 +179,8 @@ export default function GalleryPage() {
           {filteredImages.map((image) => (
             <div key={image.id} className="group relative aspect-square">
               <img
-                src={image.src}
-                alt={image.alt}
+                src={image.image}
+                alt={image.title || 'Gallery image'}
                 className="h-full w-full object-cover rounded-lg"
               />
               <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100">
@@ -187,9 +192,12 @@ export default function GalleryPage() {
                   <span className="sr-only">Delete</span>
                 </button>
               </div>
-              {image.caption && (
-                <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-xs p-2 rounded-b-lg">
-                  {image.caption}
+              {image.title && (
+                <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white text-xs p-2 rounded-b-lg">
+                  <div className="font-semibold">{image.title}</div>
+                  {image.description && (
+                    <div className="text-gray-300 truncate">{image.description}</div>
+                  )}
                 </div>
               )}
             </div>

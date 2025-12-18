@@ -31,11 +31,10 @@ export interface Amenity {
 
 export interface GalleryImage {
   id: string
-  src: string
-  alt: string
+  title: string
+  description: string
   category: string
-  caption: string
-  order: number
+  image: string
 }
 
 export interface SiteSettings {

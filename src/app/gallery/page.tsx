@@ -98,7 +98,7 @@ export default function GalleryPage() {
               >
                 <div className="relative overflow-hidden rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
                   {/* Number Badge */}
-                  <div className="absolute top-4 left-4 z-10 bg-gradient-to-br from-teal-600 to-cyan-600 text-white w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl shadow-lg">
+                  <div className="absolute top-4 left-4 z-20 bg-gradient-to-br from-teal-600 to-cyan-600 text-white w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl shadow-lg">
                     {String(index + 1).padStart(2, '0')}
                   </div>
                   
@@ -109,34 +109,22 @@ export default function GalleryPage() {
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  </div>
-                  
-                  {/* Content */}
-                  <div className="p-6 bg-gradient-to-br from-white to-gray-50">
-                    <h4 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-teal-600 transition-colors">
-                      {image.title}
-                    </h4>
-                    {image.description && (
-                      <p className="text-gray-600 text-sm line-clamp-2">{image.description}</p>
-                    )}
-                    {image.category && (
-                      <span className="inline-block mt-3 px-3 py-1 bg-teal-100 text-teal-700 text-xs font-semibold rounded-full">
-                        {image.category}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* View Details Button */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="bg-white/90 backdrop-blur-sm px-6 py-3 rounded-full shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                      <span className="text-teal-600 font-bold flex items-center gap-2">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </svg>
-                        View Details
-                      </span>
+                    {/* Dark overlay on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
+                    
+                    {/* Title and Description overlay - shows on hover */}
+                    <div className="absolute inset-0 flex flex-col justify-end p-6 z-10 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+                      <h4 className="text-2xl font-bold text-white mb-2">
+                        {image.title}
+                      </h4>
+                      {image.description && (
+                        <p className="text-white/90 text-sm leading-relaxed">{image.description}</p>
+                      )}
+                      {image.category && (
+                        <span className="inline-block mt-3 px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-semibold rounded-full self-start">
+                          {image.category}
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
