@@ -82,8 +82,22 @@ jobs:
           set -e
           cd /home/adminsak/sammcabins
           
-          echo "📥 Pulling latest code..."
+          echo "� Backing up content.json..."
+          if [ -f src/data/content.json ]; then
+            cp src/data/content.json /tmp/content.json.backup
+          fi
+          
+          echo "🔄 Stashing local changes..."
+          git stash push -m "Auto-stash before deployment" || true
+          
+          echo "�📥 Pulling latest code..."
           git pull origin main
+          
+          echo "♻️ Restoring content.json if it was backed up..."
+          if [ -f /tmp/content.json.backup ]; then
+            cp /tmp/content.json.backup src/data/content.json
+            rm /tmp/content.json.backup
+          fi
           
           echo "📦 Installing dependencies..."
           npm install
