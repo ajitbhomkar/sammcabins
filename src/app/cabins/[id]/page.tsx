@@ -3,7 +3,22 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 
-async function getCabin(id: string) {
+interface Cabin {
+  id: string
+  name: string
+  description: string
+  price: number
+  capacity: number
+  bedrooms: number
+  bathrooms: number
+  size: string
+  amenities: string[]
+  featured: boolean
+  images: string[]
+  longDescription?: string
+}
+
+async function getCabin(id: string): Promise<Cabin | null> {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
     const res = await fetch(`${baseUrl}/api/admin/content`, {
@@ -11,7 +26,7 @@ async function getCabin(id: string) {
     })
     if (!res.ok) return null
     const data = await res.json()
-    return data.cabins.find((cabin: any) => cabin.id === id)
+    return data.cabins.find((cabin: Cabin) => cabin.id === id)
   } catch (error) {
     console.error('Failed to fetch cabin:', error)
     return null
@@ -243,7 +258,7 @@ export default async function CabinDetailPage({ params }: { params: Promise<{ id
               </div>
 
               <div className="bg-gray-50 rounded-xl p-4 space-y-3">
-                <h4 className="font-semibold text-gray-900">What's Included:</h4>
+                <h4 className="font-semibold text-gray-900">What&apos;s Included:</h4>
                 <ul className="space-y-2 text-sm text-gray-600">
                   <li className="flex items-start gap-2">
                     <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -2,7 +2,35 @@ import Hero from '@/components/Hero'
 import Link from 'next/link'
 import Image from 'next/image'
 
-async function getFeaturedContent() {
+interface Cabin {
+  id: string
+  name: string
+  description: string
+  price: number
+  capacity: number
+  bedrooms: number
+  bathrooms: number
+  size: string
+  amenities: string[]
+  featured: boolean
+  images: string[]
+}
+
+interface Amenity {
+  id: string
+  name: string
+  description: string
+  category: string
+  icon?: string
+}
+
+interface FeaturedContent {
+  cabins: Cabin[]
+  amenities: Amenity[]
+  gallery: unknown[]
+}
+
+async function getFeaturedContent(): Promise<FeaturedContent> {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
     const res = await fetch(`${baseUrl}/api/admin/content`, {
@@ -39,7 +67,7 @@ export default async function Home() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredCabins.map((cabin: any) => (
+              {featuredCabins.map((cabin) => (
                 <Link 
                   key={cabin.id} 
                   href={`/cabins/${cabin.id}`}
@@ -145,7 +173,7 @@ export default async function Home() {
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-              {topAmenities.map((amenity: any) => (
+              {topAmenities.map((amenity) => (
                 <div key={amenity.id} className="text-center p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
                   {amenity.image ? (
                     <div className="relative w-16 h-16 mx-auto mb-4">

@@ -1,10 +1,17 @@
 'use client'
 
 import { useState } from 'react'
-import { Metadata } from 'next';
 import Image from 'next/image'
 
-async function getGalleryImages() {
+interface GalleryImage {
+  id: string
+  title: string
+  description: string
+  category: string
+  image: string
+}
+
+async function getGalleryImages(): Promise<GalleryImage[]> {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
     const res = await fetch(`${baseUrl}/api/admin/content`, {
@@ -20,8 +27,8 @@ async function getGalleryImages() {
 }
 
 export default function GalleryPage() {
-  const [selectedImage, setSelectedImage] = useState<any>(null)
-  const [images, setImages] = useState<any[]>([])
+  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
+  const [images, setImages] = useState<GalleryImage[]>([])
   const [filterCategory, setFilterCategory] = useState<string>('all')
   const [loading, setLoading] = useState(true)
 
@@ -79,7 +86,7 @@ export default function GalleryPage() {
           </div>
         ) : filteredImages.length > 0 ? (
           <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
-            {filteredImages.map((image: any, index: number) => (
+            {filteredImages.map((image, index: number) => (
               <div
                 key={image.id || index}
                 className="break-inside-avoid group cursor-pointer"

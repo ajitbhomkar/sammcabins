@@ -21,11 +21,20 @@ async function getAmenities() {
   }
 }
 
+interface Amenity {
+  id: string
+  name: string
+  description: string
+  category: string
+  icon?: string
+  image?: string
+}
+
 export default async function AmenitiesPage() {
   const amenities = await getAmenities()
   
   // Group amenities by category
-  const groupedAmenities = amenities.reduce((acc: any, amenity: any) => {
+  const groupedAmenities = amenities.reduce((acc: Record<string, Amenity[]>, amenity: Amenity) => {
     const category = amenity.category || 'Other'
     if (!acc[category]) {
       acc[category] = []
@@ -52,11 +61,11 @@ export default async function AmenitiesPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {Object.keys(groupedAmenities).length > 0 ? (
           <div className="space-y-16">
-            {Object.entries(groupedAmenities).map(([category, items]: [string, any]) => (
+            {Object.entries(groupedAmenities).map(([category, items]) => (
               <div key={category}>
                 <h2 className="text-3xl font-bold text-gray-900 mb-8">{category}</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {items.map((amenity: any) => (
+                  {(items as Amenity[]).map((amenity) => (
                     <div
                       key={amenity.id}
                       className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"

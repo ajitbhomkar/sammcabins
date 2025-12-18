@@ -7,7 +7,21 @@ export const metadata: Metadata = {
   description: 'Explore our collection of luxury mountain cabins with modern amenities and breathtaking views.',
 };
 
-async function getCabins() {
+interface Cabin {
+  id: string
+  name: string
+  description: string
+  price: number
+  capacity: number
+  bedrooms: number
+  bathrooms: number
+  size: string
+  amenities: string[]
+  featured: boolean
+  images: string[]
+}
+
+async function getCabins(): Promise<Cabin[]> {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
     const res = await fetch(`${baseUrl}/api/admin/content`, {
@@ -43,7 +57,7 @@ export default async function CabinsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {cabins.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {cabins.map((cabin: any) => (
+            {cabins.map((cabin) => (
               <Link
                 key={cabin.id}
                 href={`/cabins/${cabin.id}`}
@@ -132,7 +146,7 @@ export default async function CabinsPage() {
               </svg>
               <h3 className="text-3xl font-bold text-gray-900 mb-4">No Cabins Available Yet</h3>
               <p className="text-xl text-gray-600 mb-8">
-                We're preparing our beautiful cabins for you. Check back soon or add cabins from the admin panel.
+                We&apos;re preparing our beautiful cabins for you. Check back soon or add cabins from the admin panel.
               </p>
               <Link
                 href="/admin/cabins/new"
@@ -149,7 +163,7 @@ export default async function CabinsPage() {
       <div className="bg-gradient-to-r from-blue-600 to-blue-700 py-16">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Can't Find What You're Looking For?
+            Can&apos;t Find What You&apos;re Looking For?
           </h2>
           <p className="text-lg text-blue-100 mb-8">
             Contact us for custom requests or special accommodations

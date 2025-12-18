@@ -3,9 +3,8 @@
 // Automated content population script for SAAM Cabins
 // Run with: node scripts/auto-populate.js
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const http = require('http');
-
-const BASE_URL = 'http://localhost:3000';
 
 const cabinsData = [
   {
@@ -251,7 +250,7 @@ function makeRequest(path, data) {
       res.on('end', () => {
         try {
           resolve(JSON.parse(body));
-        } catch (e) {
+        } catch {
           resolve({ success: true });
         }
       });
@@ -278,7 +277,7 @@ async function populateContent() {
       await makeRequest('/api/admin/content', { type: 'cabin', data: cabin });
       addedCabins++;
       console.log(`  ✅ Added: ${cabin.name}`);
-    } catch (error) {
+    } catch {
       console.log(`  ❌ Failed: ${cabin.name}`);
     }
   }
@@ -290,7 +289,7 @@ async function populateContent() {
       await makeRequest('/api/admin/content', { type: 'amenity', data: amenity });
       addedAmenities++;
       console.log(`  ✅ Added: ${amenity.name} (${amenity.category})`);
-    } catch (error) {
+    } catch {
       console.log(`  ❌ Failed: ${amenity.name}`);
     }
   }
@@ -302,7 +301,7 @@ async function populateContent() {
       await makeRequest('/api/admin/content', { type: 'gallery', data: item });
       addedGallery++;
       console.log(`  ✅ Added: ${item.title} (${item.category})`);
-    } catch (error) {
+    } catch {
       console.log(`  ❌ Failed: ${item.title}`);
     }
   }
