@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
@@ -44,11 +45,15 @@ export default function Navigation() {
             <Link href="/" className="-m-1.5 p-1.5 flex items-center space-x-3">
               {settings?.logo ? (
                 <>
-                  <img 
-                    src={settings.logo} 
-                    alt={settings.siteName || 'Logo'} 
-                    className="h-12 w-auto object-contain"
-                  />
+                  <div className="relative h-12 w-32">
+                    <Image 
+                      src={settings.logo} 
+                      alt={settings.siteName || 'Logo'} 
+                      fill
+                      className="object-contain"
+                      priority
+                    />
+                  </div>
                   {settings.siteName && (
                     <span className="text-2xl font-bold" style={{
                       background: `linear-gradient(to right, ${primaryColor}, ${secondaryColor})`,
@@ -118,11 +123,15 @@ export default function Navigation() {
               <Link href="/" className="-m-1.5 p-1.5 flex items-center space-x-2" onClick={() => setMobileMenuOpen(false)}>
                 {settings?.logo ? (
                   <>
-                    <img 
-                      src={settings.logo} 
-                      alt={settings.siteName || 'Logo'} 
-                      className="h-10 w-auto object-contain"
-                    />
+                    <div className="relative h-10 w-24">
+                      <Image 
+                        src={settings.logo} 
+                        alt={settings.siteName || 'Logo'} 
+                        fill
+                        className="object-contain"
+                        priority
+                      />
+                    </div>
                     {settings.siteName && (
                       <span className="text-xl font-bold" style={{
                         background: `linear-gradient(to right, ${primaryColor}, ${secondaryColor})`,

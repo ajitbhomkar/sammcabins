@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
 interface GalleryImage {
@@ -33,12 +33,12 @@ export default function GalleryPage() {
   const [loading, setLoading] = useState(true)
 
   // Load images on client side
-  useState(() => {
+  useEffect(() => {
     getGalleryImages().then((data) => {
       setImages(data)
       setLoading(false)
     })
-  })
+  }, [])
 
   const categories = ['all', ...new Set(images.map((img) => img.category))]
   const filteredImages = filterCategory === 'all' 
@@ -46,71 +46,98 @@ export default function GalleryPage() {
     : images.filter((img) => img.category === filterCategory)
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-green-600 to-green-700 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-            Gallery
+    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      {/* Hero Section with Parallax Effect */}
+      <div className="relative bg-gradient-to-br from-teal-600 via-teal-700 to-cyan-800 py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 tracking-tight">
+            OUR CABINS
           </h1>
-          <p className="text-xl text-green-100 max-w-3xl mx-auto">
-            Explore our stunning collection of cabin photos and discover your perfect retreat.
+          <p className="text-xl md:text-2xl text-teal-100 max-w-3xl mx-auto font-light">
+            Discover excellence in every design. Quality craftsmanship meets modern innovation.
           </p>
         </div>
       </div>
 
       {/* Filter */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-wrap justify-center gap-3">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setFilterCategory(category)}
-              className={`px-6 py-2 rounded-full font-semibold transition ${
-                filterCategory === category
-                  ? 'bg-green-600 text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-100'
-              } shadow-md`}
-            >
-              {category.charAt(0).toUpperCase() + category.slice(1)}
-            </button>
-          ))}
+      <div className="sticky top-20 z-40 bg-white/80 backdrop-blur-lg shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-wrap justify-center gap-3">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setFilterCategory(category)}
+                className={`px-8 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all duration-300 ${
+                  filterCategory === category
+                    ? 'bg-gradient-to-r from-teal-600 to-cyan-600 text-white shadow-lg scale-105'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:shadow-md'
+                }`}
+              >
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Gallery Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pb-16">
         {loading ? (
           <div className="text-center py-20">
-            <div className="text-lg text-gray-500">Loading gallery...</div>
+            <div className="inline-block animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-teal-600"></div>
+            <p className="text-lg text-gray-500 mt-4">Loading gallery...</p>
           </div>
         ) : filteredImages.length > 0 ? (
-          <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredImages.map((image, index: number) => (
               <div
                 key={image.id || index}
-                className="break-inside-avoid group cursor-pointer"
+                className="group cursor-pointer"
                 onClick={() => setSelectedImage(image)}
               >
-                <div className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                  <div className="relative aspect-auto">
+                <div className="relative overflow-hidden rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+                  {/* Number Badge */}
+                  <div className="absolute top-4 left-4 z-10 bg-gradient-to-br from-teal-600 to-cyan-600 text-white w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl shadow-lg">
+                    {String(index + 1).padStart(2, '0')}
+                  </div>
+                  
+                  <div className="relative aspect-[4/3]">
                     <Image
                       src={image.image}
                       alt={image.title || 'Gallery image'}
-                      width={400}
-                      height={300}
-                      className="w-full h-auto object-cover"
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
-                  {image.description && (
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                      <p className="text-white font-medium">{image.description}</p>
+                  
+                  {/* Content */}
+                  <div className="p-6 bg-gradient-to-br from-white to-gray-50">
+                    <h4 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-teal-600 transition-colors">
+                      {image.title}
+                    </h4>
+                    {image.description && (
+                      <p className="text-gray-600 text-sm line-clamp-2">{image.description}</p>
+                    )}
+                    {image.category && (
+                      <span className="inline-block mt-3 px-3 py-1 bg-teal-100 text-teal-700 text-xs font-semibold rounded-full">
+                        {image.category}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* View Details Button */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="bg-white/90 backdrop-blur-sm px-6 py-3 rounded-full shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                      <span className="text-teal-600 font-bold flex items-center gap-2">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        View Details
+                      </span>
                     </div>
-                  )}
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity flex items-center justify-center opacity-0 group-hover:opacity-100">
-                    <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
-                    </svg>
                   </div>
                 </div>
               </div>
@@ -118,23 +145,43 @@ export default function GalleryPage() {
           </div>
         ) : (
           <div className="text-center py-20">
-            <div className="bg-white rounded-2xl shadow-lg p-12 max-w-2xl mx-auto">
-              <svg className="w-24 h-24 text-gray-400 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <h3 className="text-3xl font-bold text-gray-900 mb-4">No Images Yet</h3>
-              <p className="text-xl text-gray-600 mb-8">
+            <div className="bg-white rounded-3xl shadow-2xl p-16 max-w-2xl mx-auto">
+              <div className="w-32 h-32 bg-gradient-to-br from-teal-100 to-cyan-100 rounded-full flex items-center justify-center mx-auto mb-8">
+                <svg className="w-16 h-16 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h3 className="text-4xl font-bold text-gray-900 mb-4">No Images Yet</h3>
+              <p className="text-xl text-gray-600 mb-10 leading-relaxed">
                 Start uploading beautiful images to showcase your cabins and amenities.
               </p>
               <a
                 href="/admin/gallery"
-                className="inline-block bg-green-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-700 transition"
+                className="inline-block bg-gradient-to-r from-teal-600 to-cyan-600 text-white px-10 py-4 rounded-full text-lg font-bold hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
               >
                 Upload Images
               </a>
             </div>
           </div>
         )}
+      </div>
+
+      {/* CTA Section */}
+      <div className="bg-gradient-to-r from-teal-600 to-cyan-600 py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            Want To Work With Us?
+          </h2>
+          <p className="text-xl text-teal-100 mb-10">
+            Let's create something amazing together. Hit the button and start your journey.
+          </p>
+          <a
+            href="/contact"
+            className="inline-block bg-white text-teal-600 px-12 py-5 rounded-full text-lg font-bold shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
+          >
+            Let's Work Together
+          </a>
+        </div>
       </div>
 
       {/* Lightbox Modal */}
