@@ -1,0 +1,11 @@
+{
+  "hostname": "saamcabins.com",
+  "domains": ["www.saamcabins.com", "saamcabins.com"],
+  "redirects": [
+    {
+      "source": "www.saamcabins.com",
+      "destination": "saamcabins.com",
+      "permanent": true
+    }
+  ]
+}
