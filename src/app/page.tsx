@@ -1,6 +1,8 @@
 import Hero from '@/components/Hero'
 import Link from 'next/link'
 import Image from 'next/image'
+import { promises as fs } from 'fs'
+import path from 'path'
 
 interface Cabin {
   id: string
@@ -22,6 +24,7 @@ interface Amenity {
   description: string
   category: string
   icon?: string
+  image?: string
 }
 
 interface FeaturedContent {
@@ -32,14 +35,16 @@ interface FeaturedContent {
 
 async function getFeaturedContent(): Promise<FeaturedContent> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-    const res = await fetch(`${baseUrl}/api/admin/content`, {
-      cache: 'no-store'
-    })
-    if (!res.ok) return { cabins: [], amenities: [], gallery: [] }
-    return await res.json()
+    const filePath = path.join(process.cwd(), 'src/data/content.json')
+    const fileContents = await fs.readFile(filePath, 'utf8')
+    const data = JSON.parse(fileContents)
+    return {
+      cabins: data.cabins || [],
+      amenities: data.amenities || [],
+      gallery: data.gallery || []
+    }
   } catch (error) {
-    console.error('Failed to fetch content:', error)
+    console.error('Failed to load content:', error)
     return { cabins: [], amenities: [], gallery: [] }
   }
 }

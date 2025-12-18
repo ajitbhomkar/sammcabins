@@ -9,6 +9,7 @@ export interface Cabin {
   capacity: number
   bedrooms: number
   bathrooms: number
+  size?: string // dimensions of the cabin
   image?: string
   images?: string[] // array of images
   gallery?: string[]

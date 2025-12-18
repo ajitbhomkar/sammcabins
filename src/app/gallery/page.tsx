@@ -95,16 +95,16 @@ export default function GalleryPage() {
                 <div className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
                   <div className="relative aspect-auto">
                     <Image
-                      src={image.src}
-                      alt={image.alt || 'Gallery image'}
+                      src={image.image}
+                      alt={image.title || 'Gallery image'}
                       width={400}
                       height={300}
                       className="w-full h-auto object-cover"
                     />
                   </div>
-                  {image.caption && (
+                  {image.description && (
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                      <p className="text-white font-medium">{image.caption}</p>
+                      <p className="text-white font-medium">{image.description}</p>
                     </div>
                   )}
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity flex items-center justify-center opacity-0 group-hover:opacity-100">
@@ -153,15 +153,15 @@ export default function GalleryPage() {
           </button>
           <div className="max-w-5xl max-h-[90vh] overflow-auto">
             <Image
-              src={selectedImage.src}
-              alt={selectedImage.alt || 'Gallery image'}
+              src={selectedImage.image}
+              alt={selectedImage.title || 'Gallery image'}
               width={1200}
               height={800}
               className="w-full h-auto rounded-lg"
             />
-            {selectedImage.caption && (
+            {selectedImage.description && (
               <div className="bg-white mt-4 p-4 rounded-lg">
-                <p className="text-gray-900 font-medium">{selectedImage.caption}</p>
+                <p className="text-gray-900 font-medium">{selectedImage.description}</p>
               </div>
             )}
           </div>

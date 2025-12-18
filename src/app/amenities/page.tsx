@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 import Image from 'next/image'
+import { promises as fs } from 'fs'
+import path from 'path'
 
 export const metadata: Metadata = {
   title: 'Amenities - Samm Cabins',
@@ -8,15 +10,12 @@ export const metadata: Metadata = {
 
 async function getAmenities() {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-    const res = await fetch(`${baseUrl}/api/admin/content`, {
-      cache: 'no-store'
-    })
-    if (!res.ok) return []
-    const data = await res.json()
+    const filePath = path.join(process.cwd(), 'src/data/content.json')
+    const fileContents = await fs.readFile(filePath, 'utf8')
+    const data = JSON.parse(fileContents)
     return data.amenities || []
   } catch (error) {
-    console.error('Failed to fetch amenities:', error)
+    console.error('Failed to load amenities:', error)
     return []
   }
 }

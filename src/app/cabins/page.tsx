@@ -1,6 +1,8 @@
 import { Metadata } from 'next';
 import Link from 'next/link'
 import Image from 'next/image'
+import { promises as fs } from 'fs'
+import path from 'path'
 
 export const metadata: Metadata = {
   title: 'Our Cabins - Samm Cabins',
@@ -23,15 +25,12 @@ interface Cabin {
 
 async function getCabins(): Promise<Cabin[]> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-    const res = await fetch(`${baseUrl}/api/admin/content`, {
-      cache: 'no-store'
-    })
-    if (!res.ok) return []
-    const data = await res.json()
+    const filePath = path.join(process.cwd(), 'src/data/content.json')
+    const fileContents = await fs.readFile(filePath, 'utf8')
+    const data = JSON.parse(fileContents)
     return data.cabins || []
   } catch (error) {
-    console.error('Failed to fetch cabins:', error)
+    console.error('Failed to load cabins:', error)
     return []
   }
 }
