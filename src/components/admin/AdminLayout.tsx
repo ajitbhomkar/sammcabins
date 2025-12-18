@@ -10,7 +10,6 @@ import {
   SparklesIcon,
   PhotoIcon,
   Bars3Icon,
-  XMarkIcon,
 } from '@heroicons/react/24/outline'
 
 const navigation = [

@@ -296,9 +296,9 @@ async function populateContent() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ type: 'cabin', data: cabin })
         });
-        const result = await res.json();
-        console.log(`  ✅ Added: ${cabin.name} (ID: ${result.data.id})`);
-      } catch (error) {
+        await res.json();
+        console.log(`  ✅ Added: ${cabin.name}`);
+      } catch {
         console.log(`  ❌ Failed to add: ${cabin.name}`);
       }
     }
@@ -312,9 +312,9 @@ async function populateContent() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ type: 'amenity', data: amenity })
         });
-        const result = await res.json();
+        await res.json();
         console.log(`  ✅ Added: ${amenity.name} (Category: ${amenity.category})`);
-      } catch (error) {
+      } catch {
         console.log(`  ❌ Failed to add: ${amenity.name}`);
       }
     }
@@ -328,9 +328,9 @@ async function populateContent() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ type: 'gallery', data: item })
         });
-        const result = await res.json();
+        await res.json();
         console.log(`  ✅ Added: ${item.title} (Category: ${item.category})`);
-      } catch (error) {
+      } catch {
         console.log(`  ❌ Failed to add: ${item.title}`);
       }
     }
@@ -347,8 +347,9 @@ async function populateContent() {
     console.log(`\n🎉 All content from saamcabins.com has been added to your admin panel!`);
     console.log(`   Visit ${BASE_URL}/admin to view and modify the content.\n`);
 
-  } catch (error: any) {
-    console.error('❌ Error populating content:', error.message);
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('❌ Error populating content:', errorMessage);
     console.log('\n⚠️  Make sure the development server is running: npm run dev\n');
   }
 }

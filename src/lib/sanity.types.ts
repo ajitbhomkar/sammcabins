@@ -6,13 +6,13 @@ export interface Cabin {
     current: string
   }
   description?: string
-  longDescription?: any[]
+  longDescription?: unknown[]
   price: number
   capacity: number
   bedrooms: number
   bathrooms: number
-  mainImage: any
-  gallery?: any[]
+  mainImage: unknown
+  gallery?: unknown[]
   amenities?: Amenity[]
   featured: boolean
   available: boolean
@@ -25,14 +25,14 @@ export interface Amenity {
   category: string
   description?: string
   icon?: string
-  image?: any
+  image?: unknown
 }
 
 export interface GalleryImage {
   _id: string
   _type: 'gallery'
   title: string
-  image: any
+  image: unknown
   category?: string
   caption?: string
   order: number
