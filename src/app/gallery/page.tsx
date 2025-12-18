@@ -173,13 +173,13 @@ export default function GalleryPage() {
             Want To Work With Us?
           </h2>
           <p className="text-xl text-teal-100 mb-10">
-            Let's create something amazing together. Hit the button and start your journey.
+            Let&apos;s create something amazing together. Hit the button and start your journey.
           </p>
           <a
             href="/contact"
             className="inline-block bg-white text-teal-600 px-12 py-5 rounded-full text-lg font-bold shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
           >
-            Let's Work Together
+            Let&apos;s Work Together
           </a>
         </div>
       </div>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import Image from 'next/image'
 import { PhotoIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
@@ -24,7 +24,9 @@ export default function ImageUpload({
   const [uploading, setUploading] = useState(false)
   const [dragActive, setDragActive] = useState(false)
 
-  const images = Array.isArray(value) ? value : value ? [value] : []
+  const images = useMemo(() => 
+    Array.isArray(value) ? value : value ? [value] : []
+  , [value])
 
   const handleUpload = useCallback(async (files: FileList | null) => {
     if (!files || files.length === 0) return
