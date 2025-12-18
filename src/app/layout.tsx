@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -54,8 +56,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* Metadata is provided via the `metadata` export for the App Router. */}
-        {children}
+        <Navigation />
+        <div className="pt-20">{children}</div>
+        <Footer />
       </body>
     </html>
   );

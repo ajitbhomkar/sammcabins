@@ -1,93 +1,167 @@
 import { Metadata } from 'next';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
+import Link from 'next/link'
+import Image from 'next/image'
 
 export const metadata: Metadata = {
-  title: 'Porta Cabin Solutions - SAAM Cabins',
-  description: 'Explore our range of high-quality porta cabins including site offices, security cabins, and ablution units. Custom solutions available across UAE.',
+  title: 'Our Cabins - Samm Cabins',
+  description: 'Explore our collection of luxury mountain cabins with modern amenities and breathtaking views.',
 };
 
-const cabins = [
-  {
-    id: 1,
-    name: 'Site Office (12 x 3.6m)',
-    description: 'Spacious site office with 2 rooms, pantry, and toilet. Features complete electrical fittings and modern amenities.',
-    price: 'Contact for Quote',
-    image: '/images/cabins/site-office.jpg',
-    amenities: ['2 Rooms', 'Pantry', 'Toilet', 'LED Lighting', 'Power Sockets', 'Data Points'],
-  },
-  {
-    id: 2,
-    name: 'Security Cabin (2 x 2m)',
-    description: 'Standard fire-rated security cabin with complete electrical fittings and professional-grade construction.',
-    price: 'Contact for Quote',
-    image: '/images/cabins/security-cabin.jpg',
-    amenities: ['LED Lighting', 'Power Sockets', 'Data Points', 'Outdoor Light', 'Split AC Optional', 'Plug & Play'],
-  },
-  {
-    id: 3,
-    name: 'Ablution Unit (6 x 3.6m)',
-    description: 'Complete ablution unit with multiple toilets and shower facilities. Includes all sanitary fittings and electrical installations.',
-    price: 'Contact for Quote',
-    image: '/images/cabins/toilet-unit.jpg',
-    amenities: ['Multiple Units', 'Washbasins', 'Exhaust Fans', 'LED Lighting', 'Water Connection', 'Drainage System'],
-  },
-];
+async function getCabins() {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+    const res = await fetch(`${baseUrl}/api/admin/content`, {
+      cache: 'no-store'
+    })
+    if (!res.ok) return []
+    const data = await res.json()
+    return data.cabins || []
+  } catch (error) {
+    console.error('Failed to fetch cabins:', error)
+    return []
+  }
+}
 
-export default function Cabins() {
+export default async function CabinsPage() {
+  const cabins = await getCabins()
+
   return (
-    <>
-      <Navigation />
-      <main className="min-h-screen bg-white pt-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
-          <div className="mx-auto max-w-2xl text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Porta Cabin Solutions
-            </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
-              We provide high-quality porta cabins manufactured in our Sharjah facility. From site offices to security cabins, we deliver custom solutions across UAE.
-            </p>
-          </div>
+    <main className="min-h-screen bg-gray-50">
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-blue-600 to-blue-700 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+            Our Luxury Cabins
+          </h1>
+          <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+            Discover your perfect mountain retreat. Each cabin is designed for comfort and tranquility.
+          </p>
+        </div>
+      </div>
 
-          <div className="mt-16 space-y-20">
-            {cabins.map((cabin) => (
-              <div key={cabin.id} className="relative isolate flex flex-col gap-8 lg:flex-row">
-                <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
-                  <img
-                    src={cabin.image}
-                    alt={cabin.name}
-                    className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover"
-                  />
-                  <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+      {/* Cabins Grid */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {cabins.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {cabins.map((cabin: any) => (
+              <Link
+                key={cabin.id}
+                href={`/cabins/${cabin.id}`}
+                className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+              >
+                {cabin.images && cabin.images[0] ? (
+                  <div className="relative h-64 overflow-hidden bg-gray-200">
+                    <Image
+                      src={cabin.images[0]}
+                      alt={cabin.name}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <h3 className="text-2xl font-bold text-white mb-2">
+                        {cabin.name}
+                      </h3>
+                      <div className="text-white/90 text-sm">
+                        {cabin.size}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="h-64 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                    <svg className="w-20 h-20 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                  </div>
+                )}
+                
+                <div className="p-6">
+                  <p className="text-gray-600 mb-4 line-clamp-3">
+                    {cabin.description}
+                  </p>
+                  
+                  <div className="bg-gray-50 rounded-lg p-4 mb-4">
+                    <div className="grid grid-cols-2 gap-3 text-sm">
+                      {cabin.bedrooms > 0 && (
+                        <div className="flex items-center gap-2 text-gray-700">
+                          <svg className="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                          </svg>
+                          <span className="font-medium">{cabin.bedrooms} Room{cabin.bedrooms > 1 ? 's' : ''}</span>
+                        </div>
+                      )}
+                      {cabin.bathrooms > 0 && (
+                        <div className="flex items-center gap-2 text-gray-700">
+                          <svg className="w-5 h-5 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                          <span className="font-medium">{cabin.bathrooms} Toilet{cabin.bathrooms > 1 ? 's' : ''}</span>
+                        </div>
+                      )}
+                      {cabin.capacity > 0 && (
+                        <div className="flex items-center gap-2 text-gray-700">
+                          <svg className="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                          </svg>
+                          <span className="font-medium">{cabin.capacity} People</span>
+                        </div>
+                      )}
+                      {cabin.size && (
+                        <div className="flex items-center gap-2 text-gray-700">
+                          <svg className="w-5 h-5 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                          </svg>
+                          <span className="font-medium">{cabin.size}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <button className="w-full bg-gradient-to-r from-teal-600 to-cyan-600 text-white py-3 rounded-lg font-semibold group-hover:from-teal-700 group-hover:to-cyan-700 transition">
+                    View Details & Get Quote
+                  </button>
                 </div>
-                <div>
-                  <div className="flex items-center gap-x-4 text-xs">
-                    <span className="text-gray-500">{cabin.price}</span>
-                  </div>
-                  <div className="group relative max-w-xl">
-                    <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900">
-                      <span className="absolute inset-0" />
-                      {cabin.name}
-                    </h3>
-                    <p className="mt-5 text-sm leading-6 text-gray-600">{cabin.description}</p>
-                  </div>
-                  <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2">
-                    {cabin.amenities.map((amenity) => (
-                      <span
-                        key={amenity}
-                        className="inline-flex items-center rounded-full bg-gray-50 px-3 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
-                      >
-                        {amenity}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              </Link>
             ))}
           </div>
+        ) : (
+          <div className="text-center py-20">
+            <div className="bg-white rounded-2xl shadow-lg p-12 max-w-2xl mx-auto">
+              <svg className="w-24 h-24 text-gray-400 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              <h3 className="text-3xl font-bold text-gray-900 mb-4">No Cabins Available Yet</h3>
+              <p className="text-xl text-gray-600 mb-8">
+                We're preparing our beautiful cabins for you. Check back soon or add cabins from the admin panel.
+              </p>
+              <Link
+                href="/admin/cabins/new"
+                className="inline-block bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition"
+              >
+                Add Your First Cabin
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* CTA Section */}
+      <div className="bg-gradient-to-r from-blue-600 to-blue-700 py-16">
+        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Can't Find What You're Looking For?
+          </h2>
+          <p className="text-lg text-blue-100 mb-8">
+            Contact us for custom requests or special accommodations
+          </p>
+          <Link
+            href="/contact"
+            className="inline-block bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition shadow-lg"
+          >
+            Contact Us
+          </Link>
         </div>
-      </main>
-      <Footer />
-    </>
-  );
+      </div>
+    </main>
+  )
 }

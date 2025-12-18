@@ -1,109 +1,91 @@
 import { Metadata } from 'next';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
+import Image from 'next/image'
 
 export const metadata: Metadata = {
-  title: 'Features & Specifications - SAAM Cabins',
-  description: 'Discover the standard features and specifications of our porta cabins, including electrical fittings, sanitary installations, and customization options.',
+  title: 'Amenities - Samm Cabins',
+  description: 'Discover the premium amenities available at our luxury mountain cabins for a comfortable and memorable stay.',
 };
 
-const amenities = [
-  {
-    category: 'Electrical Fittings',
-    items: [
-      {
-        name: 'LED Lighting',
-        description: 'False ceiling LED lights for energy-efficient illumination throughout the cabin',
-        image: '/images/amenities/led-light.jpg',
-      },
-      {
-        name: 'Power & Data',
-        description: 'Multiple power sockets and data points for all your connectivity needs',
-        image: '/images/amenities/power-socket.jpg',
-      },
-      {
-        name: 'Electrical DB',
-        description: 'Professional-grade electrical distribution board with safety features',
-        image: '/images/amenities/electrical-db.jpg',
-      },
-    ],
-  },
-  {
-    category: 'Climate Control',
-    items: [
-      {
-        name: 'Split AC Options',
-        description: 'Optional 1.5 ton split AC installation for comfortable temperature control',
-        image: '/images/amenities/ac.jpg',
-      },
-      {
-        name: 'Exhaust Fans',
-        description: 'High-quality exhaust fans in toilets and wet areas for proper ventilation',
-        image: '/images/amenities/fan.jpg',
-      },
-      {
-        name: 'Outdoor Lighting',
-        description: 'Outdoor bulk lights for security and visibility',
-        image: '/images/amenities/outdoor-light.jpg',
-      },
-    ],
-  },
-  {
-    category: 'Sanitary Installations',
-    items: [
-      {
-        name: 'Complete Bathroom',
-        description: 'WC, washbasin, mirror, paper holder, and towel holder in toilet units',
-        image: '/images/amenities/bathroom.jpg',
-      },
-      {
-        name: 'Water Systems',
-        description: 'Optional water tank and septic tank installations available',
-        image: '/images/amenities/water-tank.jpg',
-      },
-      {
-        name: 'Plumbing',
-        description: 'Professional plumbing setup with water and drainage connections',
-        image: '/images/amenities/plumbing.jpg',
-      },
-    ],
-  },
-];
+async function getAmenities() {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+    const res = await fetch(`${baseUrl}/api/admin/content`, {
+      cache: 'no-store'
+    })
+    if (!res.ok) return []
+    const data = await res.json()
+    return data.amenities || []
+  } catch (error) {
+    console.error('Failed to fetch amenities:', error)
+    return []
+  }
+}
 
-export default function Amenities() {
+export default async function AmenitiesPage() {
+  const amenities = await getAmenities()
+  
+  // Group amenities by category
+  const groupedAmenities = amenities.reduce((acc: any, amenity: any) => {
+    const category = amenity.category || 'Other'
+    if (!acc[category]) {
+      acc[category] = []
+    }
+    acc[category].push(amenity)
+    return acc
+  }, {})
+
   return (
-    <>
-      <Navigation />
-      <main className="min-h-screen bg-white pt-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
-          <div className="mx-auto max-w-2xl text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Standard Features
-            </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
-              Our porta cabins come equipped with high-quality standard features and the flexibility to add optional amenities based on your needs.
-            </p>
-          </div>
+    <main className="min-h-screen bg-gray-50">
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-purple-600 to-purple-700 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+            Premium Amenities
+          </h1>
+          <p className="text-xl text-purple-100 max-w-3xl mx-auto">
+            Everything you need for a comfortable and luxurious mountain retreat experience.
+          </p>
+        </div>
+      </div>
 
-          <div className="mt-16 space-y-20">
-            {amenities.map((category) => (
-              <div key={category.category} className="mx-auto max-w-7xl">
-                <h2 className="text-2xl font-bold tracking-tight text-gray-900 mb-8">
-                  {category.category}
-                </h2>
-                <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                  {category.items.map((amenity) => (
-                    <div key={amenity.name} className="relative isolate rounded-2xl bg-white shadow-lg">
-                      <div className="relative aspect-[16/9]">
-                        <img
-                          src={amenity.image}
-                          alt={amenity.name}
-                          className="absolute inset-0 h-full w-full rounded-t-2xl object-cover"
-                        />
-                      </div>
+      {/* Amenities Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {Object.keys(groupedAmenities).length > 0 ? (
+          <div className="space-y-16">
+            {Object.entries(groupedAmenities).map(([category, items]: [string, any]) => (
+              <div key={category}>
+                <h2 className="text-3xl font-bold text-gray-900 mb-8">{category}</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {items.map((amenity: any) => (
+                    <div
+                      key={amenity.id}
+                      className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+                    >
+                      {amenity.image ? (
+                        <div className="relative h-48 overflow-hidden bg-gray-200">
+                          <Image
+                            src={amenity.image}
+                            alt={amenity.name}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      ) : (
+                        <div className="h-48 bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
+                          <svg className="w-20 h-20 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                          </svg>
+                        </div>
+                      )}
                       <div className="p-6">
-                        <h3 className="font-semibold text-gray-900">{amenity.name}</h3>
-                        <p className="mt-2 text-sm text-gray-600">{amenity.description}</p>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">
+                          {amenity.name}
+                        </h3>
+                        {amenity.description && (
+                          <p className="text-gray-600">
+                            {amenity.description}
+                          </p>
+                        )}
                       </div>
                     </div>
                   ))}
@@ -111,9 +93,72 @@ export default function Amenities() {
               </div>
             ))}
           </div>
+        ) : (
+          <div className="text-center py-20">
+            <div className="bg-white rounded-2xl shadow-lg p-12 max-w-2xl mx-auto">
+              <svg className="w-24 h-24 text-gray-400 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+              </svg>
+              <h3 className="text-3xl font-bold text-gray-900 mb-4">No Amenities Listed</h3>
+              <p className="text-xl text-gray-600 mb-8">
+                Add amenities from the admin panel to showcase what your cabins offer.
+              </p>
+              <a
+                href="/admin/amenities/new"
+                className="inline-block bg-purple-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-purple-700 transition"
+              >
+                Add First Amenity
+              </a>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Features Highlight */}
+      <div className="bg-gradient-to-r from-purple-600 to-purple-700 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Designed for Your Comfort
+            </h2>
+            <p className="text-lg text-purple-100 max-w-2xl mx-auto">
+              Every detail is carefully considered to ensure you have the best possible experience
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-2">Quality Assured</h3>
+              <p className="text-purple-100">All amenities are maintained to the highest standards</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-2">24/7 Availability</h3>
+              <p className="text-purple-100">All essential amenities available round the clock</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-2">Guest Favorites</h3>
+              <p className="text-purple-100">Amenities loved by our guests year after year</p>
+            </div>
+          </div>
         </div>
-      </main>
-      <Footer />
-    </>
-  );
+      </div>
+    </main>
+  )
 }
