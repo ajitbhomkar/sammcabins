@@ -14,7 +14,7 @@ const navigation = {
     {
       name: 'Facebook',
       href: 'https://facebook.com/saamcabins',
-      icon: (props: any) => (
+      icon: (props: React.SVGProps<SVGSVGElement>) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
             fillRule="evenodd"
@@ -27,7 +27,7 @@ const navigation = {
     {
       name: 'Instagram',
       href: 'https://instagram.com/saamcabins',
-      icon: (props: any) => (
+      icon: (props: React.SVGProps<SVGSVGElement>) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
             fillRule="evenodd"

@@ -13,7 +13,7 @@ export default function ContactForm() {
     try {
       await new Promise((res) => setTimeout(res, 800));
       setStatus('sent');
-    } catch (err) {
+    } catch {
       setStatus('error');
     }
   }
@@ -22,7 +22,7 @@ export default function ContactForm() {
     return (
       <div className="rounded-md bg-green-50 p-6">
         <h3 className="text-lg font-semibold text-green-800">Message sent</h3>
-        <p className="mt-2 text-sm text-green-700">Thanks — we'll get back to you shortly.</p>
+        <p className="mt-2 text-sm text-green-700">Thanks — we&apos;ll get back to you shortly.</p>
       </div>
     );
   }

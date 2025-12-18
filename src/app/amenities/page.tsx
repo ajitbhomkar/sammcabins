@@ -86,13 +86,13 @@ export default function Amenities() {
           </div>
 
           <div className="mt-16 space-y-20">
-            {amenities.map((category, categoryIndex) => (
+            {amenities.map((category) => (
               <div key={category.category} className="mx-auto max-w-7xl">
                 <h2 className="text-2xl font-bold tracking-tight text-gray-900 mb-8">
                   {category.category}
                 </h2>
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                  {category.items.map((amenity, index) => (
+                  {category.items.map((amenity) => (
                     <div key={amenity.name} className="relative isolate rounded-2xl bg-white shadow-lg">
                       <div className="relative aspect-[16/9]">
                         <img
