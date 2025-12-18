@@ -38,8 +38,37 @@ export interface GalleryImage {
   order: number
 }
 
+export interface SiteSettings {
+  logo: string
+  siteName: string
+  tagline: string
+  theme: {
+    primaryColor: string
+    secondaryColor: string
+    accentColor: string
+    textColor: string
+    backgroundColor: string
+  }
+  fonts: {
+    heading: string
+    body: string
+  }
+  contact: {
+    phone: string
+    email: string
+    address: string
+  }
+  social: {
+    facebook: string
+    instagram: string
+    twitter: string
+    linkedin: string
+  }
+}
+
 export interface AdminData {
   cabins: Cabin[]
   amenities: Amenity[]
   gallery: GalleryImage[]
+  siteSettings?: SiteSettings
 }

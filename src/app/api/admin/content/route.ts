@@ -8,6 +8,7 @@ interface ContentData {
   cabins: unknown[]
   amenities: unknown[]
   gallery: unknown[]
+  siteSettings?: unknown
 }
 
 export async function GET() {
@@ -26,6 +27,25 @@ export async function POST(request: NextRequest) {
     // If it's a full data replacement (old API style)
     if (body.cabins !== undefined || body.amenities !== undefined || body.gallery !== undefined) {
       await fs.writeFile(DATA_FILE, JSON.stringify(body, null, 2))
+      return NextResponse.json({ success: true })
+    }
+    
+    // Handle settings update
+    if (body.action === 'updateSettings') {
+      // Read current data
+      let content: ContentData = { cabins: [], amenities: [], gallery: [] }
+      try {
+        const fileData = await fs.readFile(DATA_FILE, 'utf-8')
+        content = JSON.parse(fileData)
+      } catch {
+        // File doesn't exist, use empty structure
+      }
+      
+      // Update settings
+      content.siteSettings = body.settings
+      
+      // Save updated data
+      await fs.writeFile(DATA_FILE, JSON.stringify(content, null, 2))
       return NextResponse.json({ success: true })
     }
     

@@ -307,5 +307,32 @@
       "category": "Custom",
       "image": "/images/placeholders/gallery-6.jpg"
     }
-  ]
+  ],
+  "siteSettings": {
+    "logo": "/images/logo.png",
+    "siteName": "SAAM Cabins",
+    "tagline": "Premium Porta Cabins in UAE",
+    "theme": {
+      "primaryColor": "#0d9488",
+      "secondaryColor": "#06b6d4",
+      "accentColor": "#14b8a6",
+      "textColor": "#1f2937",
+      "backgroundColor": "#ffffff"
+    },
+    "fonts": {
+      "heading": "Inter",
+      "body": "Inter"
+    },
+    "contact": {
+      "phone": "+971 XX XXX XXXX",
+      "email": "info@saamcabins.com",
+      "address": "Sharjah, UAE"
+    },
+    "social": {
+      "facebook": "",
+      "instagram": "",
+      "twitter": "",
+      "linkedin": ""
+    }
+  }
 }

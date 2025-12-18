@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { BuildingOfficeIcon, SparklesIcon, PhotoIcon, ChartBarIcon } from '@heroicons/react/24/outline'
+import { BuildingOfficeIcon, SparklesIcon, PhotoIcon, ChartBarIcon, Cog6ToothIcon } from '@heroicons/react/24/outline'
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({
@@ -81,7 +81,7 @@ export default function AdminDashboard() {
       {/* Quick Actions */}
       <div className="mt-8">
         <h3 className="text-lg font-medium text-gray-900 mb-4">Quick Actions</h3>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Link
             href="/admin/cabins?new=true"
             className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm hover:border-gray-400"
@@ -96,7 +96,7 @@ export default function AdminDashboard() {
             </div>
           </Link>
 
-          <a
+          <Link
             href="/admin/amenities?new=true"
             className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm hover:border-gray-400"
           >
@@ -108,9 +108,9 @@ export default function AdminDashboard() {
               <p className="text-sm font-medium text-gray-900">Add Amenity</p>
               <p className="truncate text-sm text-gray-500">Create a new amenity</p>
             </div>
-          </a>
+          </Link>
 
-          <a
+          <Link
             href="/admin/gallery?new=true"
             className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm hover:border-gray-400"
           >
@@ -122,7 +122,21 @@ export default function AdminDashboard() {
               <p className="text-sm font-medium text-gray-900">Upload Images</p>
               <p className="truncate text-sm text-gray-500">Add to gallery</p>
             </div>
-          </a>
+          </Link>
+
+          <Link
+            href="/admin/settings"
+            className="relative flex items-center space-x-3 rounded-lg border border-teal-300 bg-teal-50 px-6 py-5 shadow-sm hover:border-teal-400"
+          >
+            <div className="flex-shrink-0">
+              <Cog6ToothIcon className="h-10 w-10 text-teal-600" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <span className="absolute inset-0" aria-hidden="true" />
+              <p className="text-sm font-medium text-gray-900">Site Settings</p>
+              <p className="truncate text-sm text-gray-500">Logo, theme & fonts</p>
+            </div>
+          </Link>
         </div>
       </div>
 

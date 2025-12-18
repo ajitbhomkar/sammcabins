@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
@@ -16,16 +16,55 @@ const navigation = [
 export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const [settings, setSettings] = useState<{
+    logo?: string;
+    siteName?: string;
+    theme?: { primaryColor: string; secondaryColor: string };
+  } | null>(null);
+
+  useEffect(() => {
+    fetch('/api/admin/content')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.siteSettings) {
+          setSettings(data.siteSettings);
+        }
+      })
+      .catch((error) => console.error('Error loading settings:', error));
+  }, []);
+
+  const primaryColor = settings?.theme?.primaryColor || '#0d9488';
+  const secondaryColor = settings?.theme?.secondaryColor || '#06b6d4';
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">
       <nav className="mx-auto max-w-7xl px-6 lg:px-8" aria-label="Global">
         <div className="flex h-20 items-center justify-between">
           <div className="flex lg:flex-1">
-            <Link href="/" className="-m-1.5 p-1.5">
-              <span className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
-                SAAM Cabins
-              </span>
+            <Link href="/" className="-m-1.5 p-1.5 flex items-center space-x-3">
+              {settings?.logo ? (
+                <>
+                  <img 
+                    src={settings.logo} 
+                    alt={settings.siteName || 'Logo'} 
+                    className="h-12 w-auto object-contain"
+                  />
+                  {settings.siteName && (
+                    <span className="text-2xl font-bold" style={{
+                      background: `linear-gradient(to right, ${primaryColor}, ${secondaryColor})`,
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                    }}>
+                      {settings.siteName}
+                    </span>
+                  )}
+                </>
+              ) : (
+                <span className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
+                  SAAM Cabins
+                </span>
+              )}
             </Link>
           </div>
 
@@ -47,9 +86,10 @@ export default function Navigation() {
                 href={item.href}
                 className={`text-sm font-semibold leading-6 transition-colors ${
                   pathname === item.href
-                    ? 'text-teal-600'
+                    ? ''
                     : 'text-gray-900 hover:text-teal-600'
                 }`}
+                style={pathname === item.href ? { color: primaryColor } : {}}
               >
                 {item.name}
               </Link>
@@ -59,7 +99,10 @@ export default function Navigation() {
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <Link
               href="/admin"
-              className="rounded-lg bg-gradient-to-r from-teal-600 to-cyan-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:shadow-lg hover:from-teal-700 hover:to-cyan-700 transition-all"
+              className="rounded-lg px-4 py-2 text-sm font-semibold text-white shadow-sm hover:shadow-lg transition-all"
+              style={{
+                background: `linear-gradient(to right, ${primaryColor}, ${secondaryColor})`,
+              }}
             >
               Admin Panel
             </Link>
@@ -72,10 +115,30 @@ export default function Navigation() {
           <div className="fixed inset-0 z-50 bg-black/20" onClick={() => setMobileMenuOpen(false)} />
           <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
-              <Link href="/" className="-m-1.5 p-1.5" onClick={() => setMobileMenuOpen(false)}>
-                <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
-                  SAAM Cabins
-                </span>
+              <Link href="/" className="-m-1.5 p-1.5 flex items-center space-x-2" onClick={() => setMobileMenuOpen(false)}>
+                {settings?.logo ? (
+                  <>
+                    <img 
+                      src={settings.logo} 
+                      alt={settings.siteName || 'Logo'} 
+                      className="h-10 w-auto object-contain"
+                    />
+                    {settings.siteName && (
+                      <span className="text-xl font-bold" style={{
+                        background: `linear-gradient(to right, ${primaryColor}, ${secondaryColor})`,
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                      }}>
+                        {settings.siteName}
+                      </span>
+                    )}
+                  </>
+                ) : (
+                  <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
+                    SAAM Cabins
+                  </span>
+                )}
               </Link>
               <button
                 type="button"
