@@ -18,18 +18,8 @@ interface Cabin {
   images: string[]
 }
 
-interface Amenity {
-  id: string
-  name: string
-  description: string
-  category: string
-  icon?: string
-  image?: string
-}
-
 interface FeaturedContent {
   cabins: Cabin[]
-  amenities: Amenity[]
   gallery: unknown[]
 }
 
@@ -40,19 +30,17 @@ async function getFeaturedContent(): Promise<FeaturedContent> {
     const data = JSON.parse(fileContents)
     return {
       cabins: data.cabins || [],
-      amenities: data.amenities || [],
       gallery: data.gallery || []
     }
   } catch (error) {
     console.error('Failed to load content:', error)
-    return { cabins: [], amenities: [], gallery: [] }
+    return { cabins: [], gallery: [] }
   }
 }
 
 export default async function Home() {
-  const { cabins, amenities } = await getFeaturedContent()
+  const { cabins } = await getFeaturedContent()
   const featuredCabins = cabins.slice(0, 3)
-  const topAmenities = amenities.slice(0, 6)
 
   return (
     <main>
@@ -164,64 +152,15 @@ export default async function Home() {
         </section>
       )}
 
-      {/* Amenities Preview */}
-      {topAmenities.length > 0 && (
-        <section className="py-20 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Premium Amenities
-              </h2>
-              <p className="text-xl text-gray-600">
-                Everything you need for a perfect mountain escape
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-              {topAmenities.map((amenity) => (
-                <div key={amenity.id} className="text-center p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                  {amenity.image ? (
-                    <div className="relative w-16 h-16 mx-auto mb-4">
-                      <Image
-                        src={amenity.image}
-                        alt={amenity.name}
-                        fill
-                        className="object-cover rounded-lg"
-                      />
-                    </div>
-                  ) : (
-                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4">
-                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                      </svg>
-                    </div>
-                  )}
-                  <h3 className="font-semibold text-gray-900 text-sm">{amenity.name}</h3>
-                </div>
-              ))}
-            </div>
-
-            <div className="text-center mt-12">
-              <Link
-                href="/amenities"
-                className="inline-block text-blue-600 font-semibold hover:text-blue-700 transition"
-              >
-                View All Amenities →
-              </Link>
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* Features Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Why Choose Samm Cabins?
+              Why Choose SAAM Cabins?
             </h2>
             <p className="text-xl text-gray-600">
-              Experience the perfect blend of comfort and nature
+              Quality porta cabin solutions for all your needs
             </p>
           </div>
           

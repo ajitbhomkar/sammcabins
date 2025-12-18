@@ -2,12 +2,11 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { BuildingOfficeIcon, SparklesIcon, PhotoIcon, ChartBarIcon, Cog6ToothIcon } from '@heroicons/react/24/outline'
+import { BuildingOfficeIcon, PhotoIcon, ChartBarIcon, Cog6ToothIcon } from '@heroicons/react/24/outline'
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({
     cabins: 0,
-    amenities: 0,
     gallery: 0,
   })
 
@@ -17,7 +16,6 @@ export default function AdminDashboard() {
       .then((data) => {
         setStats({
           cabins: data.cabins?.length || 0,
-          amenities: data.amenities?.length || 0,
           gallery: data.gallery?.length || 0,
         })
       })
@@ -30,13 +28,6 @@ export default function AdminDashboard() {
       icon: BuildingOfficeIcon,
       color: 'bg-blue-500',
       href: '/admin/cabins',
-    },
-    {
-      name: 'Amenities',
-      value: stats.amenities,
-      icon: SparklesIcon,
-      color: 'bg-purple-500',
-      href: '/admin/amenities',
     },
     {
       name: 'Gallery Images',
@@ -97,20 +88,6 @@ export default function AdminDashboard() {
           </Link>
 
           <Link
-            href="/admin/amenities?new=true"
-            className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm hover:border-gray-400"
-          >
-            <div className="flex-shrink-0">
-              <SparklesIcon className="h-10 w-10 text-purple-600" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <span className="absolute inset-0" aria-hidden="true" />
-              <p className="text-sm font-medium text-gray-900">Add Amenity</p>
-              <p className="truncate text-sm text-gray-500">Create a new amenity</p>
-            </div>
-          </Link>
-
-          <Link
             href="/admin/gallery?new=true"
             className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm hover:border-gray-400"
           >
@@ -137,10 +114,24 @@ export default function AdminDashboard() {
               <p className="truncate text-sm text-gray-500">Logo, theme & fonts</p>
             </div>
           </Link>
+
+          <Link
+            href="/admin/cabins"
+            className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm hover:border-gray-400"
+          >
+            <div className="flex-shrink-0">
+              <ChartBarIcon className="h-10 w-10 text-purple-600" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <span className="absolute inset-0" aria-hidden="true" />
+              <p className="text-sm font-medium text-gray-900">Manage Cabins</p>
+              <p className="truncate text-sm text-gray-500">Edit existing cabins</p>
+            </div>
+          </Link>
         </div>
       </div>
 
-      {/* Recent Activity placeholder */}
+      {/* Getting Started */}
       <div className="mt-8">
         <h3 className="text-lg font-medium text-gray-900 mb-4">Getting Started</h3>
         <div className="rounded-lg bg-blue-50 p-6">
@@ -152,7 +143,7 @@ export default function AdminDashboard() {
               <h3 className="text-sm font-medium text-blue-800">Welcome to your admin panel!</h3>
               <div className="mt-2 text-sm text-blue-700">
                 <p>
-                  Start by adding your first cabin, amenities, or uploading images to the gallery.
+                  Start by adding your first cabin or uploading images to the gallery.
                   All content will be displayed on your website automatically.
                 </p>
               </div>
