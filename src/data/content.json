@@ -9,9 +9,17 @@
       "bedrooms": 1,
       "bathrooms": 1,
       "size": "20ft x 8ft",
-      "amenities": ["Air Conditioning", "Premium Fixtures", "Insulated Walls", "Electrical Setup", "Modern Design"],
+      "amenities": [
+        "Air Conditioning",
+        "Premium Fixtures",
+        "Insulated Walls",
+        "Electrical Setup",
+        "Modern Design"
+      ],
       "featured": true,
-      "images": ["/images/placeholders/cabin-1.jpg"]
+      "images": [
+        "/images/cabins/1766060427212-d.png"
+      ]
     },
     {
       "id": "office-porta-cabin",
@@ -22,9 +30,17 @@
       "bedrooms": 0,
       "bathrooms": 1,
       "size": "20ft x 8ft",
-      "amenities": ["Bathroom Attached", "Pantry Area", "Air Conditioning", "Electrical Setup", "Work Desks"],
+      "amenities": [
+        "Bathroom Attached",
+        "Pantry Area",
+        "Air Conditioning",
+        "Electrical Setup",
+        "Work Desks"
+      ],
       "featured": true,
-      "images": ["/images/placeholders/cabin-2.jpg"]
+      "images": [
+        "/images/placeholders/cabin-2.jpg"
+      ]
     },
     {
       "id": "security-cabin-1-person",
@@ -35,9 +51,17 @@
       "bedrooms": 0,
       "bathrooms": 0,
       "size": "6ft x 6ft",
-      "amenities": ["Compact Design", "Viewing Windows", "Weather Resistant", "Ventilation", "Lighting"],
+      "amenities": [
+        "Compact Design",
+        "Viewing Windows",
+        "Weather Resistant",
+        "Ventilation",
+        "Lighting"
+      ],
       "featured": false,
-      "images": ["/images/placeholders/cabin-3.jpg"]
+      "images": [
+        "/images/placeholders/cabin-3.jpg"
+      ]
     },
     {
       "id": "security-cabin-2-person",
@@ -48,9 +72,17 @@
       "bedrooms": 0,
       "bathrooms": 0,
       "size": "10ft x 8ft",
-      "amenities": ["Seating for 2", "Storage Space", "Climate Control", "Multiple Windows", "Security Features"],
+      "amenities": [
+        "Seating for 2",
+        "Storage Space",
+        "Climate Control",
+        "Multiple Windows",
+        "Security Features"
+      ],
       "featured": false,
-      "images": ["/images/placeholders/cabin-4.jpg"]
+      "images": [
+        "/images/placeholders/cabin-4.jpg"
+      ]
     },
     {
       "id": "security-cabin-3-person",
@@ -61,9 +93,17 @@
       "bedrooms": 0,
       "bathrooms": 1,
       "size": "15ft x 8ft",
-      "amenities": ["Seating for 3", "Attached Toilet", "Rest Area", "Climate Control", "Equipment Storage"],
+      "amenities": [
+        "Seating for 3",
+        "Attached Toilet",
+        "Rest Area",
+        "Climate Control",
+        "Equipment Storage"
+      ],
       "featured": false,
-      "images": ["/images/placeholders/cabin-5.jpg"]
+      "images": [
+        "/images/placeholders/cabin-5.jpg"
+      ]
     },
     {
       "id": "site-office-cabin",
@@ -74,9 +114,18 @@
       "bedrooms": 0,
       "bathrooms": 1,
       "size": "30ft x 10ft",
-      "amenities": ["Work Desks", "Meeting Area", "Storage Cabinets", "Bathroom", "Air Conditioning", "Electrical Setup"],
+      "amenities": [
+        "Work Desks",
+        "Meeting Area",
+        "Storage Cabinets",
+        "Bathroom",
+        "Air Conditioning",
+        "Electrical Setup"
+      ],
       "featured": true,
-      "images": ["/images/placeholders/cabin-6.jpg"]
+      "images": [
+        "/images/placeholders/cabin-6.jpg"
+      ]
     },
     {
       "id": "porta-cabin-toilet-units",
@@ -87,9 +136,17 @@
       "bedrooms": 0,
       "bathrooms": 1,
       "size": "8ft x 6ft",
-      "amenities": ["Plumbing Fixtures", "Ventilation", "Lighting", "Water Tank", "Waste Management"],
+      "amenities": [
+        "Plumbing Fixtures",
+        "Ventilation",
+        "Lighting",
+        "Water Tank",
+        "Waste Management"
+      ],
       "featured": false,
-      "images": ["/images/placeholders/cabin-1.jpg"]
+      "images": [
+        "/images/placeholders/cabin-1.jpg"
+      ]
     },
     {
       "id": "modified-container",
@@ -100,9 +157,17 @@
       "bedrooms": 0,
       "bathrooms": 1,
       "size": "40ft x 8ft",
-      "amenities": ["Insulated", "Electrical Setup", "Custom Fittings", "Climate Control", "Secure Storage"],
+      "amenities": [
+        "Insulated",
+        "Electrical Setup",
+        "Custom Fittings",
+        "Climate Control",
+        "Secure Storage"
+      ],
       "featured": false,
-      "images": ["/images/placeholders/cabin-2.jpg"]
+      "images": [
+        "/images/placeholders/cabin-2.jpg"
+      ]
     },
     {
       "id": "double-story-porta-cabin",
@@ -113,9 +178,18 @@
       "bedrooms": 2,
       "bathrooms": 2,
       "size": "40ft x 10ft",
-      "amenities": ["Two Stories", "Multiple Rooms", "Staircase Access", "Safety Railings", "Climate Control", "Electrical Setup"],
+      "amenities": [
+        "Two Stories",
+        "Multiple Rooms",
+        "Staircase Access",
+        "Safety Railings",
+        "Climate Control",
+        "Electrical Setup"
+      ],
       "featured": true,
-      "images": ["/images/placeholders/cabin-3.jpg"]
+      "images": [
+        "/images/placeholders/cabin-3.jpg"
+      ]
     }
   ],
   "amenities": [
