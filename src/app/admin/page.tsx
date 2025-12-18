@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { BuildingOfficeIcon, SparklesIcon, PhotoIcon, ChartBarIcon } from '@heroicons/react/24/outline'
 
 export default function AdminDashboard() {
@@ -81,7 +82,7 @@ export default function AdminDashboard() {
       <div className="mt-8">
         <h3 className="text-lg font-medium text-gray-900 mb-4">Quick Actions</h3>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <a
+          <Link
             href="/admin/cabins?new=true"
             className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm hover:border-gray-400"
           >
@@ -93,7 +94,7 @@ export default function AdminDashboard() {
               <p className="text-sm font-medium text-gray-900">Add New Cabin</p>
               <p className="truncate text-sm text-gray-500">Create a new cabin listing</p>
             </div>
-          </a>
+          </Link>
 
           <a
             href="/admin/amenities?new=true"

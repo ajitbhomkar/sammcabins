@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { PlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 import type { Cabin } from '@/types/admin'
 
@@ -64,13 +65,13 @@ export default function CabinsPage() {
           </p>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <a
+          <Link
             href="/admin/cabins/new"
             className="block rounded-md bg-teal-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-teal-500"
           >
             <PlusIcon className="inline-block h-5 w-5 mr-1 -mt-1" />
             Add Cabin
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -93,13 +94,13 @@ export default function CabinsPage() {
           <h3 className="mt-2 text-sm font-semibold text-gray-900">No cabins</h3>
           <p className="mt-1 text-sm text-gray-500">Get started by creating a new cabin.</p>
           <div className="mt-6">
-            <a
+            <Link
               href="/admin/cabins/new"
               className="inline-flex items-center rounded-md bg-teal-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-500"
             >
               <PlusIcon className="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
               New Cabin
-            </a>
+            </Link>
           </div>
         </div>
       ) : (

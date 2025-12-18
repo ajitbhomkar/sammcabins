@@ -49,16 +49,16 @@ export async function POST(request: NextRequest) {
       content[arrayKey].push(itemData)
     } else if (action === 'update') {
       // Update existing item
-      const index = content[arrayKey].findIndex((item: any) => item.id === id)
+      const index = content[arrayKey].findIndex((item: unknown) => (item as { id: string }).id === id)
       if (index !== -1) {
-        const existing = content[arrayKey][index] as Record<string, any>
+        const existing = content[arrayKey][index] as Record<string, unknown>
         content[arrayKey][index] = { ...existing, ...itemData }
       } else {
         return NextResponse.json({ error: 'Item not found' }, { status: 404 })
       }
     } else if (action === 'delete') {
       // Delete item
-      content[arrayKey] = content[arrayKey].filter((item: any) => item.id !== id)
+      content[arrayKey] = content[arrayKey].filter((item: unknown) => (item as { id: string }).id !== id)
     } else {
       return NextResponse.json({ error: 'Invalid action' }, { status: 400 })
     }
