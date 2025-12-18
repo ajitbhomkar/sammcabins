@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import Image from 'next/image'
 import { PhotoIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 interface ImageUploadProps {
@@ -25,7 +26,7 @@ export default function ImageUpload({
 
   const images = Array.isArray(value) ? value : value ? [value] : []
 
-  const handleUpload = async (files: FileList | null) => {
+  const handleUpload = useCallback(async (files: FileList | null) => {
     if (!files || files.length === 0) return
 
     setUploading(true)
@@ -63,7 +64,7 @@ export default function ImageUpload({
     } finally {
       setUploading(false)
     }
-  }
+  }, [folder, multiple, images, onChange, onUploadComplete])
 
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault()
@@ -83,7 +84,7 @@ export default function ImageUpload({
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       handleUpload(e.dataTransfer.files)
     }
-  }, [])
+  }, [handleUpload])
 
   const removeImage = (index: number) => {
     if (multiple) {
@@ -144,10 +145,11 @@ export default function ImageUpload({
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {images.map((img, index) => (
             <div key={index} className="relative group aspect-square">
-              <img
+              <Image
                 src={img}
                 alt={`Upload ${index + 1}`}
-                className="w-full h-full object-cover rounded-lg"
+                fill
+                className="object-cover rounded-lg"
               />
               <button
                 type="button"

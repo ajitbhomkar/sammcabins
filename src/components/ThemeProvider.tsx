@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useCallback } from 'react'
 
 interface SiteSettings {
   theme?: {
@@ -15,22 +15,7 @@ interface SiteSettings {
 }
 
 export default function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [settings, setSettings] = useState<SiteSettings | null>(null)
-
-  useEffect(() => {
-    // Fetch settings
-    fetch('/api/admin/content')
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.siteSettings) {
-          setSettings(data.siteSettings)
-          applyTheme(data.siteSettings)
-        }
-      })
-      .catch((error) => console.error('Error loading theme:', error))
-  }, [])
-
-  const applyTheme = (settings: SiteSettings) => {
+  const applyTheme = useCallback((settings: SiteSettings) => {
     if (settings.theme) {
       // Apply CSS variables for theme colors
       document.documentElement.style.setProperty('--color-primary', settings.theme.primaryColor)
@@ -60,7 +45,19 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
       document.documentElement.style.setProperty('--font-heading', `'${settings.fonts.heading}', sans-serif`)
       document.documentElement.style.setProperty('--font-body', `'${settings.fonts.body}', sans-serif`)
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    // Fetch settings
+    fetch('/api/admin/content')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.siteSettings) {
+          applyTheme(data.siteSettings)
+        }
+      })
+      .catch((error) => console.error('Error loading theme:', error))
+  }, [applyTheme])
 
   return <>{children}</>
 }
