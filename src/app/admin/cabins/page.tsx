@@ -66,7 +66,7 @@ export default function CabinsPage() {
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
           <a
             href="/admin/cabins/new"
-            className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
+            className="block rounded-md bg-teal-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-teal-500"
           >
             <PlusIcon className="inline-block h-5 w-5 mr-1 -mt-1" />
             Add Cabin
@@ -95,7 +95,7 @@ export default function CabinsPage() {
           <div className="mt-6">
             <a
               href="/admin/cabins/new"
-              className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
+              className="inline-flex items-center rounded-md bg-teal-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-500"
             >
               <PlusIcon className="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
               New Cabin
@@ -116,10 +116,10 @@ export default function CabinsPage() {
                       Capacity
                     </th>
                     <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Price/Night
+                      Price
                     </th>
                     <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Bedrooms
+                      Rooms
                     </th>
                     <th className="relative py-3.5 pl-3 pr-4 sm:pr-0">
                       <span className="sr-only">Actions</span>
@@ -133,18 +133,18 @@ export default function CabinsPage() {
                         {cabin.name}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {cabin.capacity} guests
+                        {cabin.capacity} People
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        ${cabin.price || cabin.pricePerNight || 0}
+                        AED {cabin.price?.toLocaleString() || 0}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {cabin.bedrooms}
+                        {cabin.bedrooms > 0 ? `${cabin.bedrooms} Room${cabin.bedrooms > 1 ? 's' : ''}` : 'N/A'}
                       </td>
                       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                         <a
                           href={`/admin/cabins/${cabin.id}`}
-                          className="text-indigo-600 hover:text-indigo-900 mr-4"
+                          className="text-teal-600 hover:text-teal-900 mr-4"
                         >
                           <PencilIcon className="inline-block h-5 w-5" />
                           <span className="sr-only">, {cabin.name}</span>
