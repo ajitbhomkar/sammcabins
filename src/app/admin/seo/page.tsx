@@ -11,6 +11,7 @@ import {
   XCircleIcon,
   ClockIcon
 } from '@heroicons/react/24/outline';
+import KeywordTracker from '@/components/KeywordTracker';
 
 interface SEOMetrics {
   pageViews: number;
@@ -179,7 +180,7 @@ export default function SEODashboard() {
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
               <MagnifyingGlassIcon className="h-6 w-6 text-amber-500" />
-              Top Keywords
+              Top Keywords (Demo)
             </h2>
             <div className="space-y-3">
               {metrics?.topKeywords.map((keyword, index) => (
@@ -207,6 +208,11 @@ export default function SEODashboard() {
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Full Width Keyword Tracker */}
+        <div className="mb-8">
+          <KeywordTracker />
         </div>
 
         {/* Technical SEO Health */}
