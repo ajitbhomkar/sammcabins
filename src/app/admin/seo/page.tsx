@@ -82,12 +82,21 @@ export default function SEODashboard() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            SEO Dashboard
-          </h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
-            Monitor your website&apos;s search performance and technical SEO health
-          </p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                SEO Dashboard
+              </h1>
+              <p className="mt-2 text-gray-600 dark:text-gray-400">
+                Monitor your website&apos;s search performance and technical SEO health
+              </p>
+            </div>
+            <div className="px-4 py-2 bg-yellow-100 dark:bg-yellow-900/30 border-2 border-yellow-400 dark:border-yellow-600 rounded-lg">
+              <p className="text-sm font-semibold text-yellow-800 dark:text-yellow-200">
+                ⚠️ DEMO DATA - Not Connected Yet
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Time Range Selector */}
@@ -246,35 +255,96 @@ export default function SEODashboard() {
         </div>
 
         {/* Integration Instructions */}
-        <div className="mt-8 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-3">
-            📊 Connect Real Analytics
+        <div className="mt-8 bg-red-50 dark:bg-red-900/20 border-2 border-red-400 dark:border-red-600 rounded-lg p-6">
+          <h3 className="text-xl font-bold text-red-900 dark:text-red-100 mb-3">
+            ⚠️ IMPORTANT: This Shows Demo Data Only
           </h3>
-          <p className="text-blue-800 dark:text-blue-200 mb-4">
-            This dashboard shows simulated data. To display real metrics:
+          <p className="text-red-800 dark:text-red-200 mb-4 font-semibold">
+            Your website was created yesterday, so there is NO real data yet. This dashboard shows example data to demonstrate what it will look like.
           </p>
-          <ol className="list-decimal list-inside space-y-2 text-blue-800 dark:text-blue-200">
-            <li>Set up Google Analytics 4 and add your tracking ID</li>
-            <li>Verify your site in Google Search Console</li>
-            <li>Configure API access for both services</li>
-            <li>Update the API endpoints in this component</li>
-          </ol>
+          
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-4 mb-4">
+            <h4 className="font-bold text-gray-900 dark:text-white mb-2">📊 To Get Real Data:</h4>
+            <ol className="list-decimal list-inside space-y-2 text-gray-800 dark:text-gray-200">
+              <li><strong>Set up Google Analytics 4</strong> (takes 5 minutes)</li>
+              <li><strong>Verify Google Search Console</strong> (takes 5 minutes)</li>
+              <li><strong>Wait 24-48 hours</strong> for Google to collect data</li>
+              <li><strong>Connect the APIs</strong> to this dashboard</li>
+            </ol>
+          </div>
+
+          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-300 dark:border-blue-700 rounded-lg p-4 mb-4">
+            <h4 className="font-bold text-blue-900 dark:text-blue-100 mb-2">🚀 Quick Setup Steps:</h4>
+            <div className="space-y-3 text-sm">
+              <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                <p className="font-semibold text-gray-900 dark:text-white mb-1">Step 1: Google Analytics 4</p>
+                <ol className="list-decimal list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-2">
+                  <li>Go to <a href="https://analytics.google.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">analytics.google.com</a></li>
+                  <li>Click &quot;Start measuring&quot; or &quot;Create Property&quot;</li>
+                  <li>Name: &quot;SAAM Cabins&quot;</li>
+                  <li>Timezone: UAE (GMT+4)</li>
+                  <li>Copy your Measurement ID (looks like: G-XXXXXXXXXX)</li>
+                </ol>
+              </div>
+
+              <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                <p className="font-semibold text-gray-900 dark:text-white mb-1">Step 2: Add to Your Website</p>
+                <p className="text-gray-700 dark:text-gray-300 ml-2">
+                  SSH to VPS and run:
+                </p>
+                <pre className="bg-gray-900 text-green-400 p-2 rounded mt-2 text-xs overflow-x-auto">
+{`cd /home/adminsak/sammcabins
+nano .env.production
+
+# Add this line:
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+
+# Save: Ctrl+X, Y, Enter
+# Then rebuild:
+NODE_ENV=production npm run build
+pm2 restart sammcabins`}
+                </pre>
+              </div>
+
+              <div className="bg-white dark:bg-gray-800 p-3 rounded">
+                <p className="font-semibold text-gray-900 dark:text-white mb-1">Step 3: Google Search Console</p>
+                <ol className="list-decimal list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-2">
+                  <li>Go to <a href="https://search.google.com/search-console" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">search.google.com/search-console</a></li>
+                  <li>Add property: http://68.178.160.108:3000 (or saamzgroup.com after domain setup)</li>
+                  <li>Choose &quot;HTML tag&quot; verification</li>
+                  <li>Copy the verification code</li>
+                  <li>Update in <code className="bg-gray-200 dark:bg-gray-700 px-1 rounded">src/app/layout.tsx</code></li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-700 rounded-lg p-4">
+            <h4 className="font-bold text-yellow-900 dark:text-yellow-100 mb-2">⏱️ Timeline for Real Data:</h4>
+            <ul className="space-y-1 text-yellow-800 dark:text-yellow-200">
+              <li><strong>Day 1-2:</strong> Google Analytics starts tracking (0 data initially)</li>
+              <li><strong>Day 3-7:</strong> Some visitors appear (if you have traffic)</li>
+              <li><strong>Week 2-4:</strong> Search Console shows impressions and clicks</li>
+              <li><strong>Month 1-3:</strong> Enough data for meaningful insights</li>
+            </ul>
+          </div>
+
           <div className="mt-4 flex gap-4">
             <a
               href="https://analytics.google.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
             >
-              Google Analytics
+              Set Up Analytics Now
             </a>
             <a
               href="https://search.google.com/search-console"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-semibold"
             >
-              Search Console
+              Set Up Search Console
             </a>
           </div>
         </div>
