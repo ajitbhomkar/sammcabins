@@ -4,14 +4,13 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon, PhoneIcon, EnvelopeIcon, ClockIcon } from '@heroicons/react/24/outline';
 
 const navigation = [
   { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
   { name: 'Cabins', href: '/cabins' },
-  { name: 'About Us', href: '/about' },
   { name: 'Gallery', href: '/gallery' },
-  { name: 'Contact', href: '/contact' },
 ];
 
 export default function Navigation() {
@@ -37,8 +36,49 @@ export default function Navigation() {
   const primaryColor = settings?.theme?.primaryColor || '#0d9488';
   const secondaryColor = settings?.theme?.secondaryColor || '#06b6d4';
 
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 shadow-lg">
+      {/* Top Bar - Navy Blue */}
+      <div className="bg-[#0a1f44] text-white py-2 text-[15px] font-semibold">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="hidden md:flex items-center justify-between w-full">
+            {/* Left: Phone */}
+            <div className="flex items-center gap-2">
+              <PhoneIcon className="h-4 w-4" />
+              <a href="tel:+971582012073" className="hover:text-gray-300 transition-colors">+971 58 201 2073</a>
+            </div>
+            {/* Center: Email */}
+            <div className="flex items-center gap-2">
+              <EnvelopeIcon className="h-4 w-4" />
+              <a href="mailto:sales@saamcabins.com" className="hover:text-gray-300 transition-colors">sales@saamcabins.com</a>
+            </div>
+            {/* Right: Hours */}
+            <div className="flex items-center gap-2">
+              <ClockIcon className="h-4 w-4" />
+              <span>Saturday - Thursday: 9:00 - 19:00 / Closed on Weekends</span>
+            </div>
+          </div>
+          {/* Mobile: Stack vertically */}
+          <div className="flex flex-col md:hidden items-center gap-1 text-sm">
+            <div className="flex items-center gap-2">
+              <PhoneIcon className="h-4 w-4" />
+              <a href="tel:+971582012073" className="hover:text-gray-300 transition-colors">+971 58 201 2073</a>
+            </div>
+            <div className="flex items-center gap-2">
+              <EnvelopeIcon className="h-4 w-4" />
+              <a href="mailto:sales@saamcabins.com" className="hover:text-gray-300 transition-colors">sales@saamcabins.com</a>
+            </div>
+            <div className="flex items-center gap-2">
+              <ClockIcon className="h-4 w-4" />
+              <span>Sat-Thu: 9:00-19:00 / Closed on Weekends</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Navigation - White */}
+      <nav className="bg-white/95 backdrop-blur-md border-b border-gray-200">
       <nav className="mx-auto max-w-7xl px-6 lg:px-8" aria-label="Global">
         <div className="flex h-20 items-center justify-between">
           <div className="flex lg:flex-1">
