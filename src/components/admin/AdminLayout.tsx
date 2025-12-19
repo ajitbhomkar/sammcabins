@@ -2,7 +2,7 @@
 
 import { Fragment } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { Dialog, Transition } from '@headlessui/react'
 import {
   HomeIcon,
@@ -11,10 +11,11 @@ import {
   PhotoIcon,
   FilmIcon,
   Bars3Icon,
+  ArrowRightOnRectangleIcon,
 } from '@heroicons/react/24/outline'
 
 const navigation = [
-  { name: 'Dashboard', href: '/admin', icon: HomeIcon },
+  { name: 'Dashboard', href: '/admin/dashboard', icon: HomeIcon },
   { name: 'Slider', href: '/admin/slider', icon: FilmIcon },
   { name: 'Cabins', href: '/admin/cabins', icon: BuildingOfficeIcon },
   { name: 'Amenities', href: '/admin/amenities', icon: SparklesIcon },
@@ -33,6 +34,12 @@ export default function AdminLayout({
   setSidebarOpen,
 }: AdminLayoutProps) {
   const pathname = usePathname()
+  const router = useRouter()
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('adminAuthenticated')
+    router.push('/admin/login')
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -137,6 +144,13 @@ export default function AdminLayout({
                   <HomeIcon className="h-6 w-6 shrink-0" />
                   View Website
                 </Link>
+                <button
+                  onClick={handleLogout}
+                  className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-red-600 hover:bg-red-50 w-full"
+                >
+                  <ArrowRightOnRectangleIcon className="h-6 w-6 shrink-0" />
+                  Logout
+                </button>
               </li>
             </ul>
           </nav>
