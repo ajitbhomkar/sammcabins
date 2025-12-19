@@ -1,4 +1,5 @@
 import Hero from '@/components/Hero'
+import HeroSlider from '@/components/HeroSlider'
 import Link from 'next/link'
 import Image from 'next/image'
 import { promises as fs } from 'fs'
@@ -23,6 +24,17 @@ interface FeaturedContent {
   gallery: unknown[]
 }
 
+interface Slide {
+  id: string
+  image: string
+  title: string
+  subtitle: string
+  buttonText: string
+  buttonLink: string
+  order: number
+  isActive: boolean
+}
+
 async function getFeaturedContent(): Promise<FeaturedContent> {
   try {
     const filePath = path.join(process.cwd(), 'src/data/content.json')
@@ -38,13 +50,58 @@ async function getFeaturedContent(): Promise<FeaturedContent> {
   }
 }
 
+async function getSlides(): Promise<Slide[]> {
+  try {
+    const filePath = path.join(process.cwd(), 'data', 'slides.json')
+    const fileContents = await fs.readFile(filePath, 'utf8')
+    const slides = JSON.parse(fileContents)
+    return slides.filter((slide: Slide) => slide.isActive)
+  } catch (error) {
+    // Return default slides if file doesn't exist
+    return [
+      {
+        id: '1',
+        image: '/images/cabins/cabin1.jpg',
+        title: 'Premium Porta Cabins in UAE',
+        subtitle: 'SAAM Cabins - Your Trusted Partner',
+        buttonText: 'View Our Cabins',
+        buttonLink: '/cabins',
+        order: 1,
+        isActive: true,
+      },
+      {
+        id: '2',
+        image: '/images/cabins/cabin2.jpg',
+        title: 'Office & Security Cabins',
+        subtitle: 'Quality Solutions for Every Need',
+        buttonText: 'Explore Products',
+        buttonLink: '/cabins',
+        order: 2,
+        isActive: true,
+      },
+      {
+        id: '3',
+        image: '/images/cabins/cabin3.jpg',
+        title: 'Fast Delivery Across UAE',
+        subtitle: 'Dubai • Sharjah • Abu Dhabi • Ajman',
+        buttonText: 'Contact Us',
+        buttonLink: '/contact',
+        order: 3,
+        isActive: true,
+      },
+    ]
+  }
+}
+
 export default async function Home() {
   const { cabins } = await getFeaturedContent()
+  const slides = await getSlides()
   const featuredCabins = cabins.slice(0, 3)
 
   return (
     <main>
-      <Hero />
+      {/* Hero Slider */}
+      <HeroSlider slides={slides} autoPlayInterval={5000} />
       
       {/* Featured Cabins Section */}
       {featuredCabins.length > 0 ? (

@@ -9,6 +9,7 @@ A modern Next.js website for SAAM Cabins, a leading porta cabin manufacturer in 
 
 ### Quick Links
 - 📊 [SEO Dashboard](/admin/seo) - Monitor search performance
+- 🎬 [Slider Manager](/admin/slider) - Configure homepage slider
 - ⚙️ [Admin Panel](/admin) - Manage content
 - 🖼️ [Gallery Admin](/admin/gallery) - Upload images
 - 🎨 [Site Settings](/admin/settings) - Customize theme
@@ -30,6 +31,7 @@ A modern Next.js website for SAAM Cabins, a leading porta cabin manufacturer in 
 ## ✨ Features
 
 ### Content Management
+- ✅ Configurable homepage hero slider
 - ✅ Dynamic cabin listings with images
 - ✅ Gallery with category filtering
 - ✅ About Us page with rich content
@@ -295,8 +297,14 @@ npx tsc --noEmit
 
 - **Admin Panel:** /admin
 - **SEO Dashboard:** /admin/seo
+- **Slider Manager:** /admin/slider
 - **Health Check:** /api/health
 - **Documentation:** See markdown files in root
+  - [SLIDER_GUIDE.md](./SLIDER_GUIDE.md) - Complete slider setup guide
+  - [ANALYTICS_SETUP.md](./ANALYTICS_SETUP.md) - Analytics configuration
+  - [SEO_GUIDE.md](./SEO_GUIDE.md) - SEO strategy and timeline
+  - [DOMAIN_SETUP.md](./DOMAIN_SETUP.md) - Domain hosting guide
+  - [LAUNCH_CHECKLIST.md](./LAUNCH_CHECKLIST.md) - Production launch steps
 
 ---
 
