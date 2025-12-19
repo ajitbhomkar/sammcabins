@@ -264,50 +264,7 @@
       "icon": "☀️"
     }
   ],
-  "gallery": [
-    {
-      "id": "vip-cabin-exterior",
-      "title": "VIP Cabin Exterior",
-      "description": "Premium VIP porta cabin exterior view showcasing modern design and quality finishes",
-      "category": "Exterior",
-      "image": "/images/placeholders/gallery-1.jpg"
-    },
-    {
-      "id": "office-cabin-interior",
-      "title": "Office Cabin Interior",
-      "description": "Spacious office cabin interior with work desks and comfortable seating",
-      "category": "Interior",
-      "image": "/images/placeholders/gallery-2.jpg"
-    },
-    {
-      "id": "security-cabin-setup",
-      "title": "Security Cabin Setup",
-      "description": "Security cabin installation at construction site entrance",
-      "category": "Exterior",
-      "image": "/images/placeholders/gallery-3.jpg"
-    },
-    {
-      "id": "site-office-workspace",
-      "title": "Site Office Workspace",
-      "description": "Professional site office workspace with meeting area",
-      "category": "Interior",
-      "image": "/images/placeholders/gallery-4.jpg"
-    },
-    {
-      "id": "toilet-unit-installation",
-      "title": "Toilet Unit Installation",
-      "description": "Modern toilet unit with quality plumbing fixtures",
-      "category": "Amenities",
-      "image": "/images/placeholders/gallery-5.jpg"
-    },
-    {
-      "id": "manufacturing-facility",
-      "title": "Manufacturing Facility",
-      "description": "Our state-of-the-art manufacturing facility in Sharjah",
-      "category": "Custom",
-      "image": "/images/placeholders/gallery-6.jpg"
-    }
-  ],
+  "gallery": [],
   "siteSettings": {
     "logo": "/images/uploads/1766065392847-logo-(2).png",
     "siteName": "",
