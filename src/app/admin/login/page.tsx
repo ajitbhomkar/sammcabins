@@ -104,19 +104,6 @@ export default function AdminLoginPage() {
               )}
             </button>
           </form>
-
-          {/* Info Section */}
-          <div className="mt-6 pt-6 border-t border-gray-200">
-            <div className="bg-blue-50 rounded-lg p-4">
-              <p className="text-xs text-blue-800 font-medium mb-2">🔐 Default Credentials</p>
-              <p className="text-xs text-blue-700">
-                Password: <code className="bg-blue-100 px-2 py-1 rounded font-mono">admin123</code>
-              </p>
-              <p className="text-xs text-blue-600 mt-2">
-                Change this in <code className="bg-blue-100 px-1 rounded">.env.local</code>
-              </p>
-            </div>
-          </div>
         </div>
 
         {/* Back to Website Link */}
