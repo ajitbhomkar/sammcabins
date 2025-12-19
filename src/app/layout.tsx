@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ThemeProvider from "@/components/ThemeProvider";
+import StructuredData from "@/components/StructuredData";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,13 +17,32 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://saamcabins.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://saamzgroup.com'),
   title: {
-    default: 'SAAM Cabins - Luxury Mountain Getaway',
-    template: '%s | SAAM Cabins',
+    default: 'SAAM Cabins - Premium Porta Cabins in UAE | Sharjah, Dubai, Abu Dhabi',
+    template: '%s | SAAM Cabins UAE',
   },
-  description: 'Experience the perfect mountain getaway at SAAM Cabins. Luxurious accommodations with breathtaking views and modern amenities.',
-  keywords: ['mountain cabins', 'luxury accommodation', 'vacation rentals', 'mountain getaway', 'SAAM Cabins'],
+  description: 'Leading porta cabin manufacturer in UAE. Premium quality portable cabins for offices, security, site offices, and accommodation in Dubai, Sharjah, Abu Dhabi. ISO certified, weather-resistant, custom solutions.',
+  keywords: [
+    'porta cabin UAE',
+    'portable cabins Dubai',
+    'porta cabins Sharjah',
+    'office cabin UAE',
+    'security cabin',
+    'site office cabin',
+    'prefab cabins Dubai',
+    'container office UAE',
+    'portable buildings UAE',
+    'modular cabins Sharjah',
+    'porta cabin manufacturer',
+    'porta cabin suppliers UAE',
+    'portable accommodation UAE',
+    'site office porta cabin',
+    'security guard cabin',
+    'VIP cabin UAE',
+    'toilet unit porta cabin',
+    'custom porta cabin Dubai'
+  ],
   authors: [{ name: 'SAAM Cabins' }],
   creator: 'SAAM Cabins',
   publisher: 'SAAM Cabins',
@@ -42,8 +62,33 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  openGraph: {
+    type: 'website',
+    locale: 'en_AE',
+    url: 'https://saamzgroup.com',
+    title: 'SAAM Cabins - Premium Porta Cabins in UAE',
+    description: 'Leading porta cabin manufacturer in UAE. Premium quality portable cabins for offices, security, and accommodation.',
+    siteName: 'SAAM Cabins',
+    images: [
+      {
+        url: '/images/uploads/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'SAAM Cabins - Porta Cabins UAE',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SAAM Cabins - Premium Porta Cabins in UAE',
+    description: 'Leading porta cabin manufacturer in UAE. Quality portable cabins for all needs.',
+    images: ['/images/uploads/og-image.jpg'],
+  },
+  alternates: {
+    canonical: 'https://saamzgroup.com',
+  },
   verification: {
-    google: 'your-google-verification-code',
+    google: 'your-google-search-console-code',
   },
 };
 
@@ -54,6 +99,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <StructuredData />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
