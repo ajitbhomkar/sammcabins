@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navigation from "@/components/Navigation";
 import Topbar from "@/components/Topbar";
+import TopContactBar from "@/components/TopContactBar";
 import Footer from "@/components/Footer";
 import ThemeProvider from "@/components/ThemeProvider";
 import StructuredData from "@/components/StructuredData";
@@ -109,6 +110,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider>
+          <TopContactBar />
           <Topbar />
           <Navigation />
           <div className="pt-20">{children}</div>

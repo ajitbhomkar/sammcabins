@@ -1,33 +1,62 @@
+/* Main navigation topbar styles */
 .topbar {
-  background: #00204a;
-  color: #fff;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logoNav {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 6px 30px;
-  font-size: 15px;
-  width: 100%;
-  box-sizing: border-box;
+  justify-content: space-between;
+  padding: 0.7rem 2rem;
 }
-.left span {
-  margin-right: 15px;
+
+.logo {
+  height: 48px;
+  margin-right: 2rem;
 }
-.separator {
-  margin: 0 8px;
-  opacity: 0.7;
+
+.navList {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
-.right {
-  font-size: 14px;
+
+.navList li {
+  display: flex;
+  align-items: center;
 }
+
+.contactBtn {
+  background: #c8102e;
+  color: #fff;
+  padding: 0.5rem 1.2rem;
+  border-radius: 3px;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.contactBtn:hover {
+  background: #a00b23;
+}
+
 @media (max-width: 600px) {
-  .topbar {
+  .logoNav {
     flex-direction: column;
     align-items: flex-start;
     padding: 8px 10px;
-    font-size: 13px;
   }
-  .right {
-    margin-top: 4px;
-    font-size: 12px;
+  .logo {
+    margin-bottom: 10px;
+  }
+  .navList {
+    gap: 1rem;
+    flex-direction: column;
+    width: 100%;
   }
 }

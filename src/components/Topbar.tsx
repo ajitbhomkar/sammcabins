@@ -1,17 +1,26 @@
-import React from 'react';
-import styles from './Topbar.module.css';
+import React from "react";
+import Link from "next/link";
+import styles from "./Topbar.module.css";
 
-const Topbar = () => (
-  <div className={styles.topbar}>
-    <div className={styles.left}>
-      <span>+971 58 201 2073</span>
-      <span className={styles.separator}>|</span>
-      <span>sales@saamcabins.com</span>
-    </div>
-    <div className={styles.right}>
-      <span>Saturday - Thursday: 9:00 - 19:00 / Closed on Weekends</span>
-    </div>
-  </div>
-);
-
-export default Topbar;
+export default function Topbar() {
+  return (
+    <header className={styles.topbar}>
+      <div className={styles.logoNav}>
+        <img src="/images/logo.png" alt="SAAM CABINS" className={styles.logo} />
+        <nav>
+          <ul className={styles.navList}>
+            <li><Link href="/">Home</Link></li>
+            <li><Link href="/about">About</Link></li>
+            <li><Link href="/cabins">Cabins</Link></li>
+            <li><Link href="/gallery">Gallery</Link></li>
+            <li>
+              <Link href="/contact">
+                <span className={styles.contactBtn}>Contact</span>
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+  );
+}
