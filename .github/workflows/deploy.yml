@@ -114,11 +114,19 @@ jobs:
           fi
           
           pm2 start ecosystem.config.js
+          pm2 startup systemd -u adminsak --hp /home/adminsak || true
           pm2 save
+          
+          echo "🏥 Setting up health monitoring..."
+          chmod +x scripts/auto-recovery.sh
           
           echo "✅ Deployment complete!"
           pm2 list
           pm2 show sammcabins
+          echo ""
+          echo "📊 Server Status:"
+          free -h
+          uptime
           ENDSSH
           
       - name: Health check
