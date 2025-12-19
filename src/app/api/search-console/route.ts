@@ -3,10 +3,7 @@ import { NextResponse } from 'next/server';
 // This endpoint will fetch real keyword ranking data from Google Search Console
 // Note: Requires Google Search Console API setup and OAuth credentials
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const days = searchParams.get('days') || '30';
-
+export async function GET() {
   // Check if Search Console API credentials are configured
   const hasCredentials = !!(
     process.env.GOOGLE_CLIENT_EMAIL &&
@@ -30,7 +27,7 @@ export async function GET(request: Request) {
       keywords: getDemoKeywordData(),
       searchConsoleUrl: 'https://search.google.com/search-console',
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json({
       error: 'api_error',
       message: 'Failed to fetch keyword data',

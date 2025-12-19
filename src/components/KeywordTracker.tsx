@@ -38,7 +38,7 @@ export default function KeywordTracker() {
       }
       
       setKeywords(data.keywords || data.demoData || []);
-    } catch (err) {
+    } catch {
       setError('Failed to load keyword data');
     } finally {
       setLoading(false);

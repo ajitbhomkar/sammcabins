@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { SiteSettings } from '@/types/admin'
 
 export default function AdminSettingsPage() {
@@ -185,11 +186,12 @@ export default function AdminSettingsPage() {
                 </label>
                 <div className="flex items-center space-x-4">
                   {logoPreview && (
-                    <div className="w-32 h-32 border-2 border-gray-200 rounded-lg overflow-hidden bg-white flex items-center justify-center">
-                      <img
+                    <div className="w-32 h-32 border-2 border-gray-200 rounded-lg overflow-hidden bg-white flex items-center justify-center relative">
+                      <Image
                         src={logoPreview}
                         alt="Logo preview"
-                        className="max-w-full max-h-full object-contain"
+                        fill
+                        className="object-contain"
                       />
                     </div>
                   )}

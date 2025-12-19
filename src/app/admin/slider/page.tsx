@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import {
   PlusIcon,
   PencilIcon,
@@ -213,10 +214,11 @@ export default function SliderAdminPage() {
                   <div className="flex flex-col md:flex-row">
                     {/* Image Preview */}
                     <div className="w-full md:w-64 h-48 relative bg-gray-200">
-                      <img
+                      <Image
                         src={slide.image}
                         alt={slide.title}
-                        className="w-full h-full object-cover"
+                        fill
+                        className="object-cover"
                       />
                       {!slide.isActive && (
                         <div className="absolute inset-0 flex items-center justify-center bg-black/50">
@@ -350,10 +352,11 @@ export default function SliderAdminPage() {
                 />
                 {previewImage && (
                   <div className="mt-3 relative h-48 bg-gray-100 rounded-lg overflow-hidden">
-                    <img
+                    <Image
                       src={previewImage}
                       alt="Preview"
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
                       onError={() => setPreviewImage('')}
                     />
                   </div>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { LockClosedIcon } from '@heroicons/react/24/outline';
 
 export default function AdminLoginPage() {
@@ -39,7 +40,7 @@ export default function AdminLoginPage() {
         setError(data.message || 'Invalid password');
         setPassword('');
       }
-    } catch (error) {
+    } catch {
       setError('Authentication failed. Please try again.');
     } finally {
       setLoading(false);
@@ -120,12 +121,12 @@ export default function AdminLoginPage() {
 
         {/* Back to Website Link */}
         <div className="text-center">
-          <a
+          <Link
             href="/"
             className="text-sm text-gray-400 hover:text-white transition-colors"
           >
             ← Back to Website
-          </a>
+          </Link>
         </div>
       </div>
     </div>

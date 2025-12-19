@@ -183,7 +183,7 @@ export default function SEODashboard() {
               Top Keywords (Demo)
             </h2>
             <div className="space-y-3">
-              {metrics?.topKeywords.map((keyword, index) => (
+              {metrics?.topKeywords.map((keyword) => (
                 <div key={keyword.keyword} className="space-y-1">
                   <div className="flex items-center justify-between">
                     <span className="text-gray-900 dark:text-white font-medium">

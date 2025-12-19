@@ -1,4 +1,3 @@
-import Hero from '@/components/Hero'
 import HeroSlider from '@/components/HeroSlider'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -56,7 +55,7 @@ async function getSlides(): Promise<Slide[]> {
     const fileContents = await fs.readFile(filePath, 'utf8')
     const slides = JSON.parse(fileContents)
     return slides.filter((slide: Slide) => slide.isActive)
-  } catch (error) {
+  } catch {
     // Return default slides if file doesn't exist
     return [
       {

@@ -31,7 +31,7 @@ async function readSlides(): Promise<Slide[]> {
     await ensureDataDir();
     const data = await fs.readFile(DATA_FILE, 'utf-8');
     return JSON.parse(data);
-  } catch (error) {
+  } catch {
     // Return default slides if file doesn't exist
     return [
       {

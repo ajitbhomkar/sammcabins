@@ -20,7 +20,7 @@ async function readSlides(): Promise<Slide[]> {
   try {
     const data = await fs.readFile(DATA_FILE, 'utf-8');
     return JSON.parse(data);
-  } catch (error) {
+  } catch {
     return [];
   }
 }
