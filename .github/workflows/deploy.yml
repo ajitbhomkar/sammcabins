@@ -100,21 +100,25 @@ jobs:
           fi
           
           echo "📦 Installing dependencies..."
-          npm install
+          npm install --production=false
           
           echo "🔨 Building application..."
-          npm run build
+          NODE_ENV=production npm run build
+          
+          echo "🧹 Cleaning up dev dependencies..."
+          npm prune --production
           
           echo "🔄 Restarting application with PM2..."
           if pm2 list | grep -q "sammcabins"; then
-            pm2 restart sammcabins
-          else
-            pm2 start npm --name "sammcabins" -- start
-            pm2 save
+            pm2 delete sammcabins
           fi
+          
+          pm2 start ecosystem.config.js
+          pm2 save
           
           echo "✅ Deployment complete!"
           pm2 list
+          pm2 show sammcabins
           ENDSSH
           
       - name: Health check

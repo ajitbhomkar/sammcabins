@@ -4,11 +4,14 @@ module.exports = {
       name: 'sammcabins',
       script: 'node_modules/next/dist/bin/next',
       args: 'start',
-      instances: 'max',
-      exec_mode: 'cluster',
+      instances: 1, // Changed from 'max' to 1 to reduce CPU usage
+      exec_mode: 'fork', // Changed from 'cluster' to 'fork' for lower overhead
       autorestart: true,
       watch: false,
-      max_memory_restart: '1G',
+      max_memory_restart: '400M', // Reduced from 1G to 400M
+      node_args: '--max-old-space-size=400', // Limit Node.js memory
+      min_uptime: '10s',
+      max_restarts: 10,
       env: {
         NODE_ENV: 'production',
         PORT: 3000,
