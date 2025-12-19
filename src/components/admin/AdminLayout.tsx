@@ -9,11 +9,13 @@ import {
   BuildingOfficeIcon,
   SparklesIcon,
   PhotoIcon,
+  FilmIcon,
   Bars3Icon,
 } from '@heroicons/react/24/outline'
 
 const navigation = [
   { name: 'Dashboard', href: '/admin', icon: HomeIcon },
+  { name: 'Slider', href: '/admin/slider', icon: FilmIcon },
   { name: 'Cabins', href: '/admin/cabins', icon: BuildingOfficeIcon },
   { name: 'Amenities', href: '/admin/amenities', icon: SparklesIcon },
   { name: 'Gallery', href: '/admin/gallery', icon: PhotoIcon },

@@ -2,22 +2,35 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { BuildingOfficeIcon, PhotoIcon, ChartBarIcon, Cog6ToothIcon } from '@heroicons/react/24/outline'
+import { BuildingOfficeIcon, PhotoIcon, ChartBarIcon, Cog6ToothIcon, FilmIcon } from '@heroicons/react/24/outline'
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({
     cabins: 0,
     gallery: 0,
+    slides: 0,
   })
 
   useEffect(() => {
+    // Fetch content stats
     fetch('/api/admin/content')
       .then((res) => res.json())
       .then((data) => {
-        setStats({
+        setStats(prev => ({
+          ...prev,
           cabins: data.cabins?.length || 0,
           gallery: data.gallery?.length || 0,
-        })
+        }))
+      })
+    
+    // Fetch slider stats
+    fetch('/api/slider')
+      .then((res) => res.json())
+      .then((data) => {
+        setStats(prev => ({
+          ...prev,
+          slides: data.slides?.length || 0,
+        }))
       })
   }, [])
 
@@ -35,6 +48,13 @@ export default function AdminDashboard() {
       icon: PhotoIcon,
       color: 'bg-green-500',
       href: '/admin/gallery',
+    },
+    {
+      name: 'Slider Slides',
+      value: stats.slides,
+      icon: FilmIcon,
+      color: 'bg-amber-500',
+      href: '/admin/slider',
     },
   ]
 
@@ -74,6 +94,20 @@ export default function AdminDashboard() {
         <h3 className="text-lg font-medium text-gray-900 mb-4">Quick Actions</h3>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Link
+            href="/admin/slider"
+            className="relative flex items-center space-x-3 rounded-lg border border-amber-300 bg-amber-50 px-6 py-5 shadow-sm hover:border-amber-400"
+          >
+            <div className="flex-shrink-0">
+              <FilmIcon className="h-10 w-10 text-amber-600" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <span className="absolute inset-0" aria-hidden="true" />
+              <p className="text-sm font-medium text-gray-900">Homepage Slider</p>
+              <p className="truncate text-sm text-gray-500">Manage hero slides</p>
+            </div>
+          </Link>
+
+          <Link
             href="/admin/cabins?new=true"
             className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm hover:border-gray-400"
           >
@@ -112,20 +146,6 @@ export default function AdminDashboard() {
               <span className="absolute inset-0" aria-hidden="true" />
               <p className="text-sm font-medium text-gray-900">Site Settings</p>
               <p className="truncate text-sm text-gray-500">Logo, theme & fonts</p>
-            </div>
-          </Link>
-
-          <Link
-            href="/admin/cabins"
-            className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm hover:border-gray-400"
-          >
-            <div className="flex-shrink-0">
-              <ChartBarIcon className="h-10 w-10 text-purple-600" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <span className="absolute inset-0" aria-hidden="true" />
-              <p className="text-sm font-medium text-gray-900">Manage Cabins</p>
-              <p className="truncate text-sm text-gray-500">Edit existing cabins</p>
             </div>
           </Link>
         </div>
