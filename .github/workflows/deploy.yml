@@ -99,14 +99,8 @@ jobs:
             rm /tmp/content.json.backup
           fi
           
-          echo "📦 Installing dependencies..."
-          npm install --production=false
-          
-          echo "🔨 Building application..."
-          NODE_ENV=production npm run build
-          
-          echo "🧹 Cleaning up dev dependencies..."
-          npm prune --production
+          echo "📦 Installing production dependencies..."
+          npm install --production
           
           echo "🔄 Restarting application with PM2..."
           if pm2 list | grep -q "sammcabins"; then
