@@ -69,7 +69,7 @@ jobs:
       - name: Add VPS to known hosts
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+          ssh-keyscan -H 68.178.160.108 >> ~/.ssh/known_hosts
           
       - name: Deploy to VPS
         env:
