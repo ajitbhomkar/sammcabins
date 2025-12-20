@@ -1,12 +1,13 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./Topbar.module.css";
 
 export default function Topbar() {
   return (
     <header className={styles.topbar}>
       <div className={styles.logoNav}>
-        <img src="/images/logo.png" alt="SAAM CABINS" className={styles.logo} />
+  <Image src="/images/logo.png" alt="SAAM CABINS" width={160} height={48} className={styles.logo} />
         <nav>
           <ul className={styles.navList}>
             <li><Link href="/">Home</Link></li>

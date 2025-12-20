@@ -75,24 +75,26 @@ export default function Navigation() {
             </div>
           </div>
         </div>
-      </div>
+  </div>
 
       {/* Main Navigation - White */}
       <nav className="bg-white/95 backdrop-blur-md border-b border-gray-200">
-      <nav className="mx-auto max-w-7xl px-6 lg:px-8" aria-label="Global">
-        <div className="flex h-20 items-center justify-between">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8" aria-label="Global">
+          <div className="flex h-20 items-center justify-between">
           <div className="flex lg:flex-1">
             <Link href="/" className="-m-1.5 p-1.5 flex items-center space-x-3">
-              {settings?.logo ? (
+              {settings && settings.logo ? (
                 <>
                   <div className="relative h-12 w-32">
-                    <Image 
-                      src={settings.logo} 
-                      alt={settings.siteName || 'Logo'} 
-                      fill
-                      className="object-contain"
-                      priority
-                    />
+                    {settings.logo && (
+                      <Image
+                        src={settings.logo as string}
+                        alt={settings.siteName || 'Logo'}
+                        fill
+                        className="object-contain"
+                        priority
+                      />
+                    )}
                   </div>
                   {settings.siteName && (
                     <span className="text-2xl font-bold" style={{
@@ -152,6 +154,7 @@ export default function Navigation() {
               Admin Panel
             </Link>
           </div>
+          </div>
         </div>
       </nav>
 
@@ -161,16 +164,18 @@ export default function Navigation() {
           <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
               <Link href="/" className="-m-1.5 p-1.5 flex items-center space-x-2" onClick={() => setMobileMenuOpen(false)}>
-                {settings?.logo ? (
+                {settings && settings.logo ? (
                   <>
                     <div className="relative h-10 w-24">
-                      <Image 
-                        src={settings.logo} 
-                        alt={settings.siteName || 'Logo'} 
-                        fill
-                        className="object-contain"
-                        priority
-                      />
+                      {settings.logo && (
+                        <Image
+                          src={settings.logo as string}
+                          alt={settings.siteName || 'Logo'}
+                          fill
+                          className="object-contain"
+                          priority
+                        />
+                      )}
                     </div>
                     {settings.siteName && (
                       <span className="text-xl font-bold" style={{
