@@ -5,6 +5,7 @@
   position: sticky;
   top: 0;
   z-index: 100;
+  margin-bottom: 0 !important;
 }
 
 .logoNav {
@@ -12,11 +13,13 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.7rem 2rem;
+  margin-bottom: 0 !important;
 }
 
 .logo {
   height: 48px;
   margin-right: 2rem;
+  margin-bottom: 0 !important;
 }
 
 .navList {
@@ -25,6 +28,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  margin-bottom: 0 !important;
 }
 
 .navList li {
@@ -50,6 +54,7 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 8px 10px;
+    margin-bottom: 0 !important;
   }
   .logo {
     margin-bottom: 10px;
@@ -58,5 +63,6 @@
     gap: 1rem;
     flex-direction: column;
     width: 100%;
+    margin-bottom: 0 !important;
   }
 }
