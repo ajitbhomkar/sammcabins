@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Navigation from "@/components/Navigation";
 import Topbar from "@/components/Topbar";
 import TopContactBar from "@/components/TopContactBar";
 import Footer from "@/components/Footer";
@@ -112,7 +111,6 @@ export default function RootLayout({
         <ThemeProvider>
           <TopContactBar />
           <Topbar />
-          <Navigation />
           <div className="pt-20">{children}</div>
           <Footer />
         </ThemeProvider>
