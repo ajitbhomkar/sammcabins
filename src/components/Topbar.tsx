@@ -6,6 +6,7 @@ import styles from "./Topbar.module.css";
 
 export default function Topbar() {
   const [settings, setSettings] = useState<{ logo?: string; siteName?: string } | null>(null);
+  const [logoError, setLogoError] = useState(false);
 
   useEffect(() => {
     fetch('/api/admin/content')
@@ -23,7 +24,22 @@ export default function Topbar() {
   return (
     <header className={styles.topbar} style={{ marginBottom: 0 }}>
       <div className={styles.logoNav} style={{ marginBottom: 0 }}>
-        <Image src={logoUrl} alt={settings?.siteName || "SAAM CABINS"} width={160} height={48} className={styles.logo} priority />
+        {!logoError ? (
+          <Image
+            src={logoUrl}
+            alt={settings?.siteName || "SAAM CABINS"}
+            width={160}
+            height={48}
+            className={styles.logo}
+            priority
+            onError={() => {
+              setLogoError(true);
+              console.error('Logo image failed to load:', logoUrl);
+            }}
+          />
+        ) : (
+          <span style={{ color: 'red', fontWeight: 'bold' }}>Logo not found</span>
+        )}
         <nav>
           <ul className={styles.navList} style={{ marginBottom: 0 }}>
             <li><Link href="/">Home</Link></li>
