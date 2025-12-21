@@ -2,9 +2,20 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
+// Blog type definition
+export type Blog = {
+  id: string;
+  title: string;
+  slug: string;
+  content: string;
+  published: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
 export default function AdminBlogsPage() {
-  const [blogs, setBlogs] = useState([]);
-  const [form, setForm] = useState({ title: "", slug: "", content: "", published: false });
+  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [form, setForm] = useState<{ title: string; slug: string; content: string; published: boolean }>({ title: "", slug: "", content: "", published: false });
   const [editingId, setEditingId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -29,7 +40,7 @@ export default function AdminBlogsPage() {
       .then((data) => setBlogs(data.blogs || []));
   };
 
-  const handleEdit = (blog: any) => {
+  const handleEdit = (blog: Blog) => {
     setForm({ title: blog.title, slug: blog.slug, content: blog.content, published: blog.published });
     setEditingId(blog.id);
   };
@@ -103,7 +114,7 @@ export default function AdminBlogsPage() {
         <h2 className="text-xl font-semibold mb-4">Existing Blogs</h2>
         {blogs.length === 0 && <p>No blogs yet.</p>}
         <ul className="space-y-4">
-          {blogs.map((blog: any) => (
+          {blogs.map((blog: Blog) => (
             <li key={blog.id} className="border rounded p-4">
               <div className="flex justify-between items-center">
                 <div>
