@@ -1,12 +1,21 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export const metadata = {
   title: 'About Us',
   description: 'Learn about SAAM Cabins - your trusted provider of innovative porta cabin solutions in UAE with in-house production and quality craftsmanship.',
-}
+};
 
 export default function AboutPage() {
+  const [about, setAbout] = useState<{ content: string; image?: string } | null>(null);
+
+  useEffect(() => {
+    fetch('/api/admin/content')
+      .then(res => res.json())
+      .then(data => setAbout(data.aboutUs || null));
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
@@ -44,29 +53,27 @@ export default function AboutPage() {
                 Who We Are
               </h2>
               <div className="space-y-4 text-gray-700 leading-relaxed">
-                <p>
-                  SAAM CABINS have an extensive range of standard cabins that can be 
-                  constructed to your specifications. We offer an extensive range of 
-                  Porta Cabin ablution Units, site offices, Security Cabins, Porta Cabin 
-                  Toilets, and Portable toilets in different standard pre-designed units 
-                  to choose from, with economical designs and quality fittings and furnishings.
-                </p>
-                <p>
-                  We pride ourselves in our ability to design and create affordable, 
-                  customized and environmentally friendly portable buildings as well as 
-                  professional requirements. This is why we continue to lead the way in 
-                  modular buildings.
-                </p>
+                {about ? (
+                  about.content.split('\n').map((para, idx) => (
+                    <p key={idx}>{para}</p>
+                  ))
+                ) : (
+                  <p>Loading...</p>
+                )}
               </div>
             </div>
             <div className="relative h-96 rounded-2xl overflow-hidden shadow-xl">
               <div className="absolute inset-0 bg-gradient-to-br from-teal-500/20 to-cyan-500/20" />
-              <Image
-                src="/images/placeholders/cabin-1.jpg"
-                alt="SAAM Cabins facility"
-                fill
-                className="object-cover"
-              />
+              {about?.image ? (
+                <Image
+                  src={about.image}
+                  alt="About Us"
+                  fill
+                  className="object-cover"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-gray-400">No image</div>
+              )}
             </div>
           </div>
         </div>

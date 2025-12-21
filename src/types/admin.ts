@@ -65,9 +65,14 @@ export interface SiteSettings {
   }
 }
 
+export interface AboutUs {
+  content: string
+}
+
 export interface AdminData {
   cabins: Cabin[]
   amenities: Amenity[]
   gallery: GalleryImage[]
   siteSettings?: SiteSettings
+  aboutUs?: AboutUs
 }

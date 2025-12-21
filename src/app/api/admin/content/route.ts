@@ -32,19 +32,23 @@ export async function POST(request: NextRequest) {
     
     // Handle settings update
     if (body.action === 'updateSettings') {
-      // Read current data
       let content: ContentData = { cabins: [], amenities: [], gallery: [] }
       try {
         const fileData = await fs.readFile(DATA_FILE, 'utf-8')
         content = JSON.parse(fileData)
-      } catch {
-        // File doesn't exist, use empty structure
-      }
-      
-      // Update settings
+      } catch {}
       content.siteSettings = body.settings
-      
-      // Save updated data
+      await fs.writeFile(DATA_FILE, JSON.stringify(content, null, 2))
+      return NextResponse.json({ success: true })
+    }
+    // Handle About Us update
+    if (body.action === 'updateAboutUs') {
+      let content: any = {}
+      try {
+        const fileData = await fs.readFile(DATA_FILE, 'utf-8')
+        content = JSON.parse(fileData)
+      } catch {}
+      content.aboutUs = body.aboutUs
       await fs.writeFile(DATA_FILE, JSON.stringify(content, null, 2))
       return NextResponse.json({ success: true })
     }
