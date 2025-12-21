@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { PlusIcon, TrashIcon, FunnelIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import ImageUpload from '@/components/admin/ImageUpload'
 import type { GalleryImage } from '@/types/admin'
+import Image from 'next/image'
 
 export default function GalleryPage() {
   const [images, setImages] = useState<GalleryImage[]>([])
@@ -166,7 +167,7 @@ export default function GalleryPage() {
                 <div className="grid grid-cols-3 gap-4">
                   {uploadedImages.map((url, idx) => (
                     <div key={idx} className="relative aspect-square rounded-lg overflow-hidden border-2 border-gray-200">
-                      <img src={url} alt={`Upload ${idx + 1}`} className="w-full h-full object-cover" />
+                      <Image src={url} alt={`Upload ${idx + 1}`} className="w-full h-full object-cover" width={500} height={500} />
                     </div>
                   ))}
                 </div>
@@ -299,10 +300,12 @@ export default function GalleryPage() {
         <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {filteredImages.map((image) => (
             <div key={image.id} className="group relative aspect-square">
-              <img
+              <Image
                 src={image.image}
                 alt={image.title || 'Gallery image'}
                 className="h-full w-full object-cover rounded-lg"
+                width={500}
+                height={500}
               />
               <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100">
                 <button

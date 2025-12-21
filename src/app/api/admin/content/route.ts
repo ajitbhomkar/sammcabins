@@ -9,6 +9,7 @@ interface ContentData {
   amenities: unknown[]
   gallery: unknown[]
   siteSettings?: unknown
+  aboutUs?: unknown
 }
 
 export async function GET() {
@@ -43,14 +44,14 @@ export async function POST(request: NextRequest) {
     }
     // Handle About Us update
     if (body.action === 'updateAboutUs') {
-      let content: any = {}
+      let content: ContentData = { cabins: [], amenities: [], gallery: [] };
       try {
-        const fileData = await fs.readFile(DATA_FILE, 'utf-8')
-        content = JSON.parse(fileData)
+        const fileData = await fs.readFile(DATA_FILE, 'utf-8');
+        content = JSON.parse(fileData);
       } catch {}
-      content.aboutUs = body.aboutUs
-      await fs.writeFile(DATA_FILE, JSON.stringify(content, null, 2))
-      return NextResponse.json({ success: true })
+      content.aboutUs = body.aboutUs;
+      await fs.writeFile(DATA_FILE, JSON.stringify(content, null, 2));
+      return NextResponse.json({ success: true });
     }
     
     // Handle CRUD actions

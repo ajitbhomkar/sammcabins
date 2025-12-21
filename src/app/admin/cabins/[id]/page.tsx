@@ -1,9 +1,10 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import ImageUpload from '@/components/admin/ImageUpload'
 import type { Cabin } from '@/types/admin'
+import Image from 'next/image'
 
 export default function EditCabinPage() {
   const router = useRouter()
@@ -24,11 +25,7 @@ export default function EditCabinPage() {
     amenities: [],
   })
 
-  useEffect(() => {
-    loadCabin()
-  }, [cabinId])
-
-  const loadCabin = async () => {
+  const loadCabin = useCallback(async () => {
     try {
       const res = await fetch('/api/admin/content')
       const data = await res.json()
@@ -46,7 +43,11 @@ export default function EditCabinPage() {
     } finally {
       setInitialLoading(false)
     }
-  }
+  }, [cabinId, router])
+
+  useEffect(() => {
+    loadCabin()
+  }, [loadCabin])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -268,9 +269,11 @@ export default function EditCabinPage() {
             <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {formData.images.map((url: string, index: number) => (
                 <div key={index} className="relative group">
-                  <img
+                  <Image
                     src={url}
                     alt={`Cabin ${index + 1}`}
+                    width={500}
+                    height={300}
                     className="h-24 w-full object-cover rounded-lg"
                   />
                   <button

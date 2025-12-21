@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Bars3Icon, XMarkIcon, PhoneIcon, EnvelopeIcon, ClockIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import TopContactBar from './TopContactBar';
 
 const navigation = [

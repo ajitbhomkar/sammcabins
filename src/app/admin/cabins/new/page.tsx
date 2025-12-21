@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import ImageUpload from '@/components/admin/ImageUpload'
 import type { Cabin } from '@/types/admin'
+import Image from 'next/image'
 
 export default function NewCabinPage() {
   const router = useRouter()
@@ -187,9 +188,11 @@ export default function NewCabinPage() {
             <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {formData.images.map((url: string, index: number) => (
                 <div key={index} className="relative group">
-                  <img
+                  <Image
                     src={url}
                     alt={`Cabin ${index + 1}`}
+                    width={500}
+                    height={300}
                     className="h-24 w-full object-cover rounded-lg"
                   />
                   <button

@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 export default function AdminAboutPage() {
   const [aboutUs, setAboutUs] = useState("");
@@ -60,7 +61,7 @@ export default function AdminAboutPage() {
           onChange={e => setImageFile(e.target.files?.[0] || null)}
         />
         {image && (
-          <img src={image} alt="About Us" className="mt-4 rounded shadow w-48" />
+          <Image src={image} alt="About Us" width={192} height={192} className="mt-4 rounded shadow w-48 h-auto" />
         )}
       </div>
       <button
