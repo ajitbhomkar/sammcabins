@@ -6,7 +6,6 @@ import styles from "./Topbar.module.css";
 
 export default function Topbar() {
   const [settings, setSettings] = useState<{ logo?: string; siteName?: string } | null>(null);
-  const [logoUrl, setLogoUrl] = useState<string>("");
 
   useEffect(() => {
     fetch('/api/admin/content')
@@ -14,23 +13,17 @@ export default function Topbar() {
       .then((data) => {
         if (data.siteSettings) {
           setSettings(data.siteSettings);
-          // Add cache-busting param to logo
-          if (data.siteSettings.logo) {
-            setLogoUrl(data.siteSettings.logo + '?v=' + Date.now());
-          }
         }
       })
       .catch(() => {});
   }, []);
 
+  const logoUrl = settings?.logo && settings.logo !== '' ? settings.logo : "/images/logo.png";
+
   return (
     <header className={styles.topbar} style={{ marginBottom: 0 }}>
       <div className={styles.logoNav} style={{ marginBottom: 0 }}>
-        {logoUrl ? (
-          <Image src={logoUrl} alt={settings?.siteName || "SAAM CABINS"} width={160} height={48} className={styles.logo} priority />
-        ) : (
-          <Image src="/images/logo.png" alt="SAAM CABINS" width={160} height={48} className={styles.logo} priority />
-        )}
+        <Image src={logoUrl} alt={settings?.siteName || "SAAM CABINS"} width={160} height={48} className={styles.logo} priority />
         <nav>
           <ul className={styles.navList} style={{ marginBottom: 0 }}>
             <li><Link href="/">Home</Link></li>
