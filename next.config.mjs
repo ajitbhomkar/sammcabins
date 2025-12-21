@@ -1,16 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // If you use only local images, you can remove the images config entirely.
-  // If you need remote images, use remotePatterns as below:
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**', // allow all domains, or specify your domain(s)
-      },
-    ],
-    unoptimized: process.env.NODE_ENV === 'development',
-  },
+  // Removed images config to allow all local images
   typescript: {
     ignoreBuildErrors: false,
   },
